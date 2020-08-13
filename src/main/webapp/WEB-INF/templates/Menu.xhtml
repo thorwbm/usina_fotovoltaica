@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+
+	<h:form>
+		<p:menu style="width:100%" styleClass="menu-sistema" toggleable="true" >
+	        <p:submenu label="Cadastro" >
+			 	<p:menuitem value="Consórcio" outcome="/usina/cidade/pesquisaCidade" icon="fa fa-university" />
+			 	<p:menuitem value="Usina"  icon="fa fa-bolt" />
+			 	<p:menuitem value="Documento"  icon="fa fa-id-card-o" />
+			 	<p:menuitem value="Empresa"  outcome="/usina/empresa/pesquisaEmpresa" icon="fa fa-industry" />
+			</p:submenu>
+			<p:submenu label="Relatório">
+	            <p:menuitem value="Relatório"      icon="fa fa-pencil-square-o"/>
+	            <p:menuitem value="Dashboard"   icon="ui-icon-comment"/>
+	        </p:submenu>
+		 	<p:submenu label="SAIR">
+	            <p:menuitem value="Sair do Sistema" icon="ui-icon-unlocked"  url="/opiniao/j_spring_security_logout"  />
+	        </p:submenu>
+	
+	</p:menu>
+	
+	</h:form>
+	
+
+	
+</ui:composition>

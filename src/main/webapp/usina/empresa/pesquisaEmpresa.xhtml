@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<h1 class="aw-page-title">EMPRESA</h1>
+		
+		<h:form id="frm">
+			Empresas de energia
+			
+			<p:messages autoUpdate="true" closable="true"/>			
+			
+			<p:toolbar style="margin-top:10px; ">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaEmpresaBean.limpar}" update="@form" styleClass="botao-medio"/>
+					<p:separator />
+					<p:button value="Limpar" outcome="/usina/cidade/pesquisaCidade" styleClass="botao-medio"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/inicio" styleClass="botao-medio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			
+			
+			
+			<p:dataTable value="#{pesquisaEmpresaBean.empresas}" var="empresa" style="margin-top:10px" 
+				emptyMessage="Nenhuma empresa encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="codigo"  style="text-align: left;" styleClass="column-pequeno">
+					<h:outputText value="#{empresa.codigo}"/>
+				</p:column>
+				
+				
+				<p:column headerText="Nome"  style="text-align: left;">
+					<h:outputText value="#{empresa.nome}"/>
+				</p:column>
+				
+				
+				
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

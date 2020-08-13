@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><ui:insert name="titulo">Usina</ui:insert></title>
+		
+		<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+		
+		<h:outputStylesheet library="algaworks" name="styles/custom.css" />
+		<h:outputStylesheet library="algaworks" name="styles/layout.css" />
+		<h:outputStylesheet library="algaworks" name="styles/components.css" />
+	</h:head>
+	
+	<h:body>
+		<f:metadata>
+    		<f:viewParam name="dummy" />
+    		<f:event listener="#{loginBean.preRender}" type="preRenderView" />
+    	</f:metadata>
+		
+		<h:form id="frm" prependId="false">
+			<div id="login-dialog">
+				<p:messages id="messages" autoUpdate="true" closable="true" />
+				
+				<h:graphicImage library="algaworks" name="images/logo.png"/>
+				<h:panelGrid columns="2" styleClass="grid-login">
+					
+					<p:outputLabel value="Login:" />
+					<p:inputText size="30" id="j_username" value="#{loginBean.login}"><p:focus /></p:inputText>
+					
+					<p:outputLabel value="Senha:" />
+					<p:password size="30" id="j_password" />
+					
+					<p:spacer />
+					<h:panelGroup>
+						<p:commandButton value="Login" action="#{loginBean.logar}" ajax="false" />
+					</h:panelGroup>
+				</h:panelGrid>
+					
+				<p:spacer />
+				<h:panelGroup>	
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Instruções de acesso:" />
+						<p:commandLink oncomplete="PF('mostrarInstrucao').show();" process="@this">Clique aqui!</p:commandLink>
+							
+						<p:outputLabel value="Esqueceu sua senha:" />
+						<p:commandLink oncomplete="PF('restaurarSenha').show();" process="@this">Clique aqui!</p:commandLink>
+					</h:panelGrid>
+				</h:panelGroup>					
+			</div>
+		</h:form>
+		
+		<h:form id="frm2">
+			<p:dialog id="mostrarInstrucaoDialog" header="Instruções para acesso" widgetVar="mostrarInstrucao" 
+			  	modal="true" width="500" height="240" showEffect="explode" hideEffect="explode">
+				<h:outputText value="Para acessar o sistema, o aluno deverá informar:" style="color:#ff0000;font-size:15px;" />
+				<br /><br />
+				<h:outputText value="Professor:" style="color:#003366;font-size:15px;font-weight: bold;" />
+				<br />
+				<h:outputText value="O seu "/>
+				 <h:outputText value="primeiro nome 'ponto' último nome" style="color:#003366;font-size:15px;font-style: italic;"/>
+				 <h:outputText value=" (ex: joao.silva) no campo login." style="color:#003366;font-size:15px;" />
+				<br />
+				<h:outputText value="O seu CPF (somente números) no campo senha." style="color:#003366;font-size:15px;" />
+				<br /><br />
+				<h:outputText value="ALuno:" style="color:#003366;font-size:15px;font-weight: bold;" />
+				<br />
+				<h:outputText value="O seu R.A. (Registro Acadêmico com ponto) no campo login." style="color:#003366;font-size:15px;" />
+				<br />
+				<h:outputText value="O seu CPF (somente números) no campo senha." style="color:#003366;font-size:15px;" />
+				<br /><br />
+				<h:outputText value="Caso você esteja encontrando alguma dificuldade para acessar o sistema, 
+					entre em contato com o setor de Concursos pelo telefone: (31)3248-7125" style="text-align:center;font-style: italic;"  />
+			</p:dialog>
+			
+			<p:dialog id="restaurarSenhaDialog" header="Restaurar Senha" widgetVar="restaurarSenha" 
+			  	modal="true" width="550" height="280" showEffect="explode" hideEffect="explode" dynamic="true">
+				<p:toolbar style="margin-top:20px">
+						<p:toolbarGroup>
+							 							
+							<p:commandButton value="Restaurar" id="botao" action="#{loginBean.restaurarSenha}" 
+							                 oncomplete="if(args.sucesso == true)  { PF('restaurarSenha').hide(); PF('painel').update();}"  
+		                			update=":frm:messages painel">
+						</p:commandButton>
+						</p:toolbarGroup>
+					</p:toolbar>
+				
+				<p:panel style="margin-top: 10px">
+						<h:panelGrid columns="1">
+							<p:outputLabel value="Atenção" style="color:#ff0000; font-size: 19px;" />
+			    			<p:outputLabel value="Para restaurar sua senha você deve informar CPF no campo abaixo e clicar no botão 'Restaurar'" />
+						</h:panelGrid>
+					</p:panel>
+				
+				<p:panelGrid columns="2" id="painel" style="width:100%;margin-top:15px" columnClasses="rotulo,campo">										
+						<p:outputLabel value="CPF" for="cpf" />
+						<p:inputMask mask="999.999.999-99" id="cpf" required="true" 
+						 	requiredMessage="O campo CPF deve ser informado" value="#{loginBean.cpf}"></p:inputMask>
+					</p:panelGrid>
+			</p:dialog>
+		</h:form>
+		
+		
+	</h:body>	
+</html>

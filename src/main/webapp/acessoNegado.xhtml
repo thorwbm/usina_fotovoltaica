@@ -1,0 +1,30 @@
+<ui:composition 
+	template="/WEB-INF/templates/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="frm">
+			<p:outputLabel value="Acesso Negado" style="font-size:18px; color:#a29061" />
+			
+			<p:toolbar style="margin-top:10px">
+				<f:facet name="left">
+		            <p:button value="Voltar" onclick="javascript:history.back(1)" icon="ui-icon-arrowreturnthick-1-w" />
+		        </f:facet>
+		    </p:toolbar>
+			
+			<p:panel header="Acesso Negado" style="margin-top:10px">
+				<h:panelGrid columns="1">
+					<br />
+					<p:outputLabel value="Área Restrita" style="color: #CC0000; font-size: 16px;"  />
+	    			<p:outputLabel value="Você não possui permissão para acessar esta página." style="color: #CC0000; font-size: 16px;"  />
+	    			<br />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+		
+</ui:composition>
