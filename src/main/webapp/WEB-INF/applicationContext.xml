@@ -28,7 +28,8 @@
     <!-- ACESSO LIVRE -->    
     <http security="none" pattern="/erro.xhtml" />
     <http security="none" pattern="/usina/cidade/pesquisaCidade.xhtml" />
-    <http security="none" pattern="/usina/empresa/pesquisaEmpresa.xhtml" />    
+    <http security="none" pattern="/usina/empresa/pesquisaEmpresa.xhtml" />
+    <http security="none" pattern="/usina/empresa/cadastroEmpresa.xhtml" />    
     <http security="none" pattern="/index.xhtml" />
     <http security="none" pattern="/javax.faces.resource/**" />
     
