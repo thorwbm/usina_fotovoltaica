@@ -36,12 +36,21 @@
 					<h:outputText value="#{empresa.codigo}"/>
 				</p:column>
 				
-				
 				<p:column headerText="Nome"  style="text-align: left;">
 					<h:outputText value="#{empresa.nome}"/>
 				</p:column>
 				
+				<p:column headerText="Editar" styleClass="column-pequeno">
+					<p:button outcome="/usina/empresa/cadastroEmpresa" icon="ui-icon-pencil" title="Editar">
+						<f:param name="andar" value="#{empresa.codigo}" />
+					</p:button>
+				</p:column>
 				
+				<p:column headerText="Excluir" styleClass="column-pequeno">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" action="#{pesquisaEmpresaBean.excluir(empresa)}">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão" message="Tem certeza que deseja excluir o registro?" />
+					</p:commandButton>
+				</p:column>
 				
 			</p:dataTable>
 		</h:form>

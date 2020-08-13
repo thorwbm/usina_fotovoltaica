@@ -42,4 +42,8 @@ public class PesquisaEmpresaBean  implements Serializable{
 	public void limpar() {
 		empresas = empresaService.listar();
 	}
+	
+	public void excluir(Long empresaId) {
+		empresaService.excluir(empresaId);
+	}
 }

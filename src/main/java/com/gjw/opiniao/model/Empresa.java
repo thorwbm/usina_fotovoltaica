@@ -32,7 +32,7 @@ public class Empresa implements Serializable {
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	private String nome;
 
