@@ -105,10 +105,10 @@
 
 		<!-- OmniFaces (utilitarios para JSF) -->
 		<dependency>
-			<groupId>org.omnifaces</groupId>
-			<artifactId>omnifaces</artifactId>
-			<version>1.8.1</version>
-			<scope>compile</scope>
+		    <groupId>org.omnifaces</groupId>
+		    <artifactId>omnifaces</artifactId>
+		    <version>2.3</version>
+				    <scope>compile</scope>
 		</dependency>
 
 		<!-- Commons Lang (utilidades) -->
@@ -159,7 +159,7 @@
 		</dependency>
 
 		<!-- Mojarra (implementaÃ§Ã£o do JSF 2) -->
-		<dependency>
+	  	<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.faces</artifactId>
 			<version>2.2.7</version>

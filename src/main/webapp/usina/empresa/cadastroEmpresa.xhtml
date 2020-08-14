@@ -8,7 +8,7 @@
 	
 	<ui:define name="content">
 		<f:metadata>
-			<o:viewParam name="empresa" value="#{cadastroEmpresaBean.empresa}" />
+			<f:viewParam name="empresa" value="#{cadastroEmpresaBean.empresa}" converter="#{empresaConverter}"/>
 		</f:metadata>
 		<h1 class="aw-page-title">EMPRESA</h1>
 		

@@ -15,7 +15,7 @@
 			
 			<p:toolbar style="margin-top:10px; ">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" action="#{pesquisaEmpresaBean.limpar}" update="@form" styleClass="botao-medio"/>
+					<p:commandButton value="Pesquisar" action="#{pesquisaEmpresaBean.testar}" update="@form" styleClass="botao-medio"/>
 					<p:separator />
 					<p:button value="Limpar" outcome="/usina/cidade/pesquisaCidade" styleClass="botao-medio"/>
 				</p:toolbarGroup>
@@ -42,17 +42,22 @@
 				
 				<p:column headerText="Editar" styleClass="column-pequeno">
 					<p:button outcome="/usina/empresa/cadastroEmpresa" icon="ui-icon-pencil" title="Editar">
-						<f:param name="andar" value="#{empresa.codigo}" />
+						<f:param name="empresa" value="#{empresa.codigo}" />
 					</p:button>
 				</p:column>
 				
 				<p:column headerText="Excluir" styleClass="column-pequeno">
-					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" action="#{pesquisaEmpresaBean.excluir(empresa)}">
-						<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão" message="Tem certeza que deseja excluir o registro?" />
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" actionListener="#{pesquisaEmpresaBean.excluir(empresa.codigo)}">
+						<p:confirm header="Exclusão de empresa" message="Tem certeza que deseja excluir a empresa?"  icon="ui-icon-alert" />
 					</p:commandButton>
-				</p:column>
-				
+				</p:column>				
 			</p:dataTable>
+			
+			
+			<p:confirmDialog global="true">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </p:confirmDialog>
 		</h:form>
 	</ui:define>
 	

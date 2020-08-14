@@ -46,4 +46,9 @@ public class PesquisaEmpresaBean  implements Serializable{
 	public void excluir(Long empresaId) {
 		empresaService.excluir(empresaId);
 	}
+	
+	public void testar() {
+		empresaSelecionada = empresaService.pesquisarPorCodigo(1L);
+		System.out.println("************************************************teste de acesso ******    " + empresaSelecionada.getNome());
+	}
 }

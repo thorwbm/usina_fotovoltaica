@@ -1,30 +1,31 @@
 package com.gjw.opiniao.converter;
 
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.gjw.opiniao.dao.EmpresaDAO;
 import com.gjw.opiniao.model.Empresa;
 
-@FacesConverter(forClass= Empresa.class)
+@Named
 public class EmpresaConverter  implements Converter {
 	
 	@Inject
-	private EmpresaDAO dao;
+	private EmpresaDAO empresaDao;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String codigo) {
 		Empresa retorno = null;
-		
+
 		if (codigo != null) {
 			Long id = new Long(codigo);
-			retorno = dao.pesquisarPorCodigo(id);
+			retorno = empresaDao.pesquisarPorCodigo(id);
 		}
 		
-		return retorno;		
+		return retorno;	
 	}
 
 	@Override

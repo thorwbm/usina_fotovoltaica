@@ -9,7 +9,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.*;
+import org.primefaces.model.file.UploadedFile;
+
+
 
 public class Upload implements Serializable {
 	
