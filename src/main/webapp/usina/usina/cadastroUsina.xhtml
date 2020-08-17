@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="usina" value="#{cadastroUsinaBean.usina}" converter="#{usinaConverter}"/>
+		</f:metadata>
+		<h1 class="aw-page-title">USINA</h1>
+		
+		<h:form id="frm">
+			#{cadastroUsinaBean.editando ? 'Editar' : 'Nova'} Usina
+			
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroUsinaBean.salvar}" update="@form" styleClass="tamanho-minimo-medio"/>
+					<p:separator />
+	    			<p:button value="Limpar" outcome="/usina/usina/cadastroUsina" styleClass="tamanho-minimo-medio"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usina/usina/pesquisaUsina" styleClass="tamanho-minimo-medio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados da usina" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5">						
+						
+						<p:outputLabel value="Consórico" for="consorcio"/>
+				    	<p:selectOneMenu  id="consorcio" value="#{cadastroUsinaBean.usina.consorcio}"  label="consório"  style="width: 100% !important" converter="#{consorcioConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroUsinaBean.consorcios}" var="consorcio" itemValue="#{consorcio}" itemLabel="#{consorcio.nome}"/>
+						</p:selectOneMenu>
+												
+						<p:outputLabel value="Nome" for="nome"/>
+						<p:inputText id="nome" value="#{cadastroUsinaBean.usina.nome}">
+						</p:inputText>
+						
+						<p:outputLabel value="localização UTM" for="utm"/>
+						<p:inputText id="utm" value="#{cadastroUsinaBean.usina.localizacaoUtm}"/>
+						
+						<p:outputLabel value="localização GMS" for="gms"/>
+						<p:inputText id="gms" value="#{cadastroUsinaBean.usina.localizacaoGms}"/>
+						
+						<p:outputLabel value="Potência" for="potencia"/>
+						<p:inputText id="potencia" value="#{cadastroUsinaBean.usina.potencia}"/>
+						
+						<p:outputLabel value="ART" for="art"/>
+						<p:inputText id="art" value="#{cadastroUsinaBean.usina.art}"/>
+						
+						<p:outputLabel value="Situação" for="situacao"/>
+				    	<p:selectOneMenu  id="situacao" value="#{cadastroUsinaBean.usina.situacao}"  label="situacao"  style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroUsinaBean.situacao}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
+						</p:selectOneMenu>
+						
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

@@ -1,20 +1,30 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Set;
 
 
 /**
  * The persistent class for the consorcio database table.
  * 
  */
-@Entity
 @Data
+@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name="consorcio")
 @NamedQuery(name="Consorcio.findAll", query="SELECT c FROM Consorcio c")
@@ -25,7 +35,7 @@ public class Consorcio implements Serializable {
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	@Column(name="cpf_cnpj")
 	private String cpfCnpj;
@@ -34,17 +44,23 @@ public class Consorcio implements Serializable {
 
 	private String nome;
 
+	private String email;
+	
+	private String telefone;
+	
+	private String contato;	
+	
 	//bi-directional many-to-one association to Endereco
-	@ManyToOne
-	private Endereco endereco;
+	@ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Endereco endereco = new Endereco();
 
 	//bi-directional many-to-one association to Responsavel
-	@ManyToOne
-	private Responsavel responsavel;
+	@ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Responsavel responsavel ;
 
 	//bi-directional many-to-one association to Usina
 	@OneToMany(mappedBy="consorcio")
-	private Set<Usina> usinas;
+	private Set<Usina> usinas ;
 
 
 }

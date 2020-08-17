@@ -1,6 +1,7 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -48,11 +49,11 @@ public class Endereco implements Serializable {
 	
 	//bi-directional many-to-one association to Consorcio
 	@OneToMany(mappedBy="endereco")
-	private Set<Consorcio> consorcios;
+	private Set<Consorcio> consorcios = new HashSet<Consorcio>();
 
 	//bi-directional many-to-one association to Cidade
 	@ManyToOne
-	private Cidade cidade;
+	private Cidade cidade = new Cidade();
 
 	//bi-directional one-to-one association to Responsavel
 	@OneToOne(mappedBy="endereco")

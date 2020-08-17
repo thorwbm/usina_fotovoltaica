@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="consorcio" value="#{cadastroConsorcioBean.consorcio}" converter="#{consorcioConverter}"/>
+		</f:metadata>
+		<h1 class="aw-page-title">CONSÓRCIO</h1>
+		
+		<h:form id="frm">
+			#{cadastroConsorcioBean.editando ? 'Editar' : 'Novo'} Consórcio
+			
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroConsorcioBean.salvar}" update="@form"  styleClass="botao-pequeno"/>
+					<p:separator />
+					<p:button value="Limpar" outcome="/usina/consorcio/cadastroConsorcio" styleClass="botao-pequeno" />
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usina/consorcio/pesquisaConsorcio" styleClass="botao-pequeno"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados do consórcio" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5">
+						
+						<p:outputLabel value="Nome" for="nome"/>
+						<p:inputText id="nome" value="#{cadastroConsorcioBean.consorcio.nome}">
+							<p:focus />
+						</p:inputText>
+						
+						<p:outputLabel value="CPF - CPNJ" for="cpfCnpj"/>
+						<p:inputText id="cpfCnpj" value="#{cadastroConsorcioBean.consorcio.cpfCnpj}"/>
+													
+						<p:outputLabel value="Identificador" for="identificador"/>
+						<p:inputText id="identificador" value="#{cadastroConsorcioBean.consorcio.identificador}"/>
+													
+						<p:outputLabel value="Telefone" for="telefone"/>
+						<p:inputText id="telefone" value="#{cadastroConsorcioBean.consorcio.telefone}"/>
+													
+						<p:outputLabel value="E-mail" for="email"/>
+						<p:inputText id="email" value="#{cadastroConsorcioBean.consorcio.email}"/>
+													
+						<p:outputLabel value="Contato" for="contato"/>
+						<p:inputText id="contato" value="#{cadastroConsorcioBean.consorcio.contato}"/>
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>
+			
+			<div class="ui-fluid">
+				<p:panel header="Endereço do consórcio" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">
+						
+						<p:outputLabel value="CEP" for="cep"/>
+						<p:inputText id="cep" value="#{cadastroConsorcioBean.consorcio.endereco.cep}"/>							
+						
+						<p:outputLabel value="Logadouro" for="logradouro"/>
+						<p:inputText id="logradouro" value="#{cadastroConsorcioBean.consorcio.endereco.logradouro}"/>
+													
+						<p:outputLabel value="Número" for="numero"/>
+						<p:inputText id="numero" value="#{cadastroConsorcioBean.consorcio.endereco.numero}"/>
+												
+						<p:outputLabel value="Complemento" for="complemento"/>
+						<p:inputText id="complemento" value="#{cadastroConsorcioBean.consorcio.endereco.complemento}"/>
+						
+						<p:outputLabel value="Bairro" for="bairro"/>
+						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.endereco.bairro}"/>
+															
+						<p:outputLabel value="Estado" for="estado"/>
+						<p:inputText id="estado" value="#{cadastroConsorcioBean.consorcio.endereco.cidade.estado.sigla}"/>
+															
+						<p:outputLabel value="cidade" for="cidade"/>
+						<p:inputText id="cidade" value="#{cadastroConsorcioBean.consorcio.endereco.cidade.nome}"/>
+															
+					</p:panelGrid>
+				</p:panel>
+			</div>			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

@@ -9,15 +9,15 @@
 		<h1 class="aw-page-title">EMPRESA</h1>
 		
 		<h:form id="frm">
-			Empresas de energia
+			Empresa de energia
 			
 			<p:messages autoUpdate="true" closable="true"/>			
 			
 			<p:toolbar style="margin-top:10px; ">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" action="#{pesquisaEmpresaBean.testar}" update="@form" styleClass="botao-medio"/>
+					<p:commandButton value="Pesquisar" action="#{pesquisaEmpresaBean.limpar}" update="@form" styleClass="botao-medio"/>
 					<p:separator />
-					<p:button value="Limpar" outcome="/usina/cidade/pesquisaCidade" styleClass="botao-medio"/>
+					<p:button value="Limpar" outcome="/usina/empresa/pesquisaEmpresa" styleClass="botao-medio"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">

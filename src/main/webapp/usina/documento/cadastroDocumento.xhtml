@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="documento" value="#{cadastroDocumentoBean.documento}" converter="#{documentoConverter}"/>
+		</f:metadata>
+		<h1 class="aw-page-title">DOCUMENTO</h1>
+		
+		<h:form id="frm">
+			#{cadastroDocumentoBean.editando ? 'Editar' : 'Novo'} Documento
+			
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroDocumentoBean.salvar}" update="@form" styleClass="botao-pequeno"/>
+					<p:separator />
+	    			<p:button value="Limpar" outcome="/usina/documento/cadastroDocumento" styleClass="botao-pequeno"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usina/documento/pesquisaDocumento" styleClass="botao-pequeno"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados do documento" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5">
+						
+						<p:outputLabel value="Nome" for="nome"/>
+						<p:inputText id="nome" value="#{cadastroDocumentoBean.documento.nome}">
+							<p:focus />
+						</p:inputText>
+						
+						<p:outputLabel value="Descrição" for="descricao"/>
+						<p:inputText id="descricao" value="#{cadastroDocumentoBean.documento.descricao}">
+							<p:focus />
+						</p:inputText>
+						
+						<p:outputLabel value="Tipo Documento"/>
+						<p:selectOneMenu id="idTipo" value="#{cadastroDocumentoBean.documento.tipo}" style="width:100% !important;">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroDocumentoBean.tipoDocumentos}"  var="tipoDocumento" itemLabel="#{tipoDocumento.descricao}"  itemValue="#{tipoDocumento}"/>
+							
+							<p:ajax />
+						</p:selectOneMenu >
+						
+						<p:outputLabel value="Obrigatório"/>
+						<p:selectOneMenu id="idObrigatorio" value="#{cadastroDocumentoBean.documento.obrigatorio}" style="width:100% !important;">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItem itemLabel="Não Obrigatório" itemValue="0"/>
+							<f:selectItem itemLabel="Obrigatório"     itemValue="1"/>
+							<p:ajax />
+						</p:selectOneMenu >
+						
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

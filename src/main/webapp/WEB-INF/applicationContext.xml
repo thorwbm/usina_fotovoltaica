@@ -29,7 +29,13 @@
     <http security="none" pattern="/erro.xhtml" />
     <http security="none" pattern="/usina/cidade/pesquisaCidade.xhtml" />
     <http security="none" pattern="/usina/empresa/pesquisaEmpresa.xhtml" />
-    <http security="none" pattern="/usina/empresa/cadastroEmpresa.xhtml" />    
+    <http security="none" pattern="/usina/empresa/cadastroEmpresa.xhtml" /> 
+    <http security="none" pattern="/usina/documento/pesquisaDocumento.xhtml" />
+    <http security="none" pattern="/usina/documento/cadastroDocumento.xhtml" />    
+    <http security="none" pattern="/usina/consorcio/pesquisaConsorcio.xhtml" />
+    <http security="none" pattern="/usina/consorcio/cadastroConsorcio.xhtml" />    
+    <http security="none" pattern="/usina/usina/pesquisaUsina.xhtml" />
+    <http security="none" pattern="/usina/usina/cadastrousina.xhtml" />    
     <http security="none" pattern="/index.xhtml" />
     <http security="none" pattern="/javax.faces.resource/**" />
     

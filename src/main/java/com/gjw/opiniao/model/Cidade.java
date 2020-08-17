@@ -43,7 +43,7 @@ public class Cidade implements Serializable {
 
 	//bi-directional many-to-one association to Estado
 	@ManyToOne
-	private Estado estado;
+	private Estado estado = new Estado();
 
 	//bi-directional many-to-one association to Endereco
 	@OneToMany(mappedBy="cidade")

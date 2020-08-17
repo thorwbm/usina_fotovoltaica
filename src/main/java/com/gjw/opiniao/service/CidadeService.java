@@ -15,6 +15,15 @@ public class CidadeService implements Serializable {
 	@Inject
 	private CidadeDAO cidadeDao;
 	
+
+	public void excluir(Long cidadeId) {
+		try {
+			cidadeDao.excluir(cidadeId);
+		} catch (Exception e) {
+			throw new NegocioException("A cidade não pode removida!!!", e);
+		}
+	}
+		
 	public List<Cidade> listar(){
 		return cidadeDao.listar("nome", "asc");
 	}
@@ -31,13 +40,8 @@ public class CidadeService implements Serializable {
 		}
 	}
 	
-	public void excluir(Long cidadeId) {
-		try {
-			cidadeDao.excluir(cidadeId);
-		} catch (Exception e) {
-			throw new NegocioException("A cidade não pode removida!!!", e);
-		}
+	public Cidade buscaCidade(String cidadeNome, String siglaEstado) {
+		return cidadeDao.buscaCidade( cidadeNome,  siglaEstado);
 	}
-	
-	
+		
 }

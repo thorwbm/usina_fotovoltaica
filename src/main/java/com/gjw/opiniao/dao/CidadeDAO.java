@@ -13,6 +13,19 @@ public class CidadeDAO extends GenericoDAO<Cidade, Long> implements Serializable
 		return Cidade.class;
 	}
 
+	public Cidade buscaCidade(String cidadeNome, String siglaEstado) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(" Select cid from Cidade cid join fetch cid.estado est        ")
+		  .append("  Where est.sigla = :siglaEstado and cid.nome = :cidadeNome  ")
+		  .append("  order by est.sigla, cid.nome                               ");
+		
+		return getEntityManager().createQuery(sb.toString(),Cidade.class)
+				.setParameter("siglaEstado", siglaEstado)
+				.setParameter("cidadeNome", cidadeNome)
+				.getSingleResult(); 
+		
+	}
+
 
 
 }

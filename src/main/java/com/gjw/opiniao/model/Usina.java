@@ -2,10 +2,13 @@ package com.gjw.opiniao.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +38,8 @@ public class Usina implements Serializable {
 	@Id
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	@Column(name="id")
+	private long codigo;
 
 	private String art;
 
@@ -58,28 +62,29 @@ public class Usina implements Serializable {
 
 	private int potencia;
 
-	private String situacao;
+	@Enumerated(EnumType.STRING)
+	private SituacaoProcesso situacao;
 
 	//bi-directional many-to-one association to Documentacao
 	@OneToMany(mappedBy="usina")
-	private Set<Documentacao> documentacaos;
+	private Set<Documentacao> documentacoes = new HashSet<Documentacao>();
 
 	//bi-directional many-to-one association to Formulario
 	@OneToMany(mappedBy="usina")
-	private Set<Formulario> formularios;
+	private Set<Formulario> formularios = new HashSet<Formulario>();
 
 	//bi-directional many-to-one association to Protocolo
 	@OneToMany(mappedBy="usina")
-	private Set<Protocolo> protocolos;
+	private Set<Protocolo> protocolos = new HashSet<Protocolo>();
 
 	//bi-directional many-to-one association to Consorcio
 	@ManyToOne
-	private Consorcio consorcio;
+	private Consorcio consorcio = new Consorcio();
 
 	//bi-directional one-to-one association to Endereco
 	@OneToOne
 	@JoinColumn(name="id")
-	private Endereco endereco;
+	private Endereco endereco = new Endereco();
 
 	//bi-directional many-to-one association to Usina
 	@ManyToOne

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<h1 class="aw-page-title">CONSÓRCIO</h1>
+		
+		<h:form id="frm">
+			Consórcios
+			
+			<p:messages autoUpdate="true" closable="true"/>			
+			
+			<p:toolbar style="margin-top:10px; ">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaConsorcioBean.limpar}" update="@form" styleClass="botao-pequeno"/>
+					<p:separator />
+					<p:button value="Limpar" outcome="/usina/consorcio/pesquisaConsorcio" styleClass="botao-pequeno"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/usina/consorcio/cadastroConsorcio"  styleClass="botao-pequeno"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+						
+			<p:dataTable value="#{pesquisaConsorcioBean.consorcios}" var="consorcio" style="margin-top:10px" 
+				emptyMessage="Nenhum consorcio encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="codigo"  style="text-align: left;" styleClass="column-pequeno">
+					<h:outputText value="#{consorcio.codigo}"/>
+				</p:column>
+				
+				<p:column headerText="Nome"  style="text-align: left;">
+					<h:outputText value="#{consorcio.nome}"/>
+				</p:column>
+				
+				<p:column headerText="E-mail"  style="text-align: left;">
+					<h:outputText value="#{consorcio.email}"/>
+				</p:column>
+				
+				<p:column headerText="Telefone"  style="text-align: left;" styleClass="column-medio">
+					<h:outputText value="#{consorcio.telefone}"/>
+				</p:column>
+				
+				<p:column headerText="Identificador"  style="text-align: left;" styleClass="column-medio">
+					<h:outputText value="#{consorcio.identificador}"/>
+				</p:column>
+								
+				<p:column headerText="Editar" styleClass="column-pequeno">
+					<p:button outcome="/usina/consorcio/cadastroConsorcio" icon="ui-icon-pencil" title="Editar">
+						<f:param name="consorcio" value="#{consorcio.codigo}" />
+					</p:button>
+				</p:column>
+				
+				<p:column headerText="Excluir" styleClass="column-pequeno">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" actionListener="#{pesquisaConsorcioBean.excluir(consorcio.codigo)}">
+						<p:confirm header="Exclusão de Consórcio" message="Tem certeza que deseja excluir o Consórcio?"  icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>				
+			</p:dataTable>
+						
+			<p:confirmDialog global="true">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </p:confirmDialog>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

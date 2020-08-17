@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,8 +22,8 @@ import lombok.EqualsAndHashCode;
  * The persistent class for the documento database table.
  * 
  */
-@Entity
 @Data
+@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name="documento")
 @NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
@@ -32,7 +34,7 @@ public class Documento implements Serializable {
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	private String descricao;
 
@@ -40,7 +42,8 @@ public class Documento implements Serializable {
 
 	private int obrigatorio;
 
-	private String tipo;
+	@Enumerated(EnumType.STRING)
+	private TipoDocumento tipo;
 
 	//bi-directional many-to-one association to Documentacao
 	@OneToMany(mappedBy="documento")

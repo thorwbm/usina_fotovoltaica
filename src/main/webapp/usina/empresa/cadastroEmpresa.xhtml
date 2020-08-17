@@ -13,7 +13,8 @@
 		<h1 class="aw-page-title">EMPRESA</h1>
 		
 		<h:form id="frm">
-			#{cadastroEmpresaBean.editando ? 'Editar' : 'Novo'} Empresa
+			#{cadastroEmpresaBean.editando ? 'Editar' : 'Nova'} Empresa
+			
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
 					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroEmpresaBean.salvar}" update="@form" styleClass="tamanho-minimo-medio"/>
@@ -29,7 +30,7 @@
 			<p:messages autoUpdate="true" closable="true" />
 			
 			<div class="ui-fluid">
-				<p:panel header="Dados do Andar" style="margin-top:10px;">
+				<p:panel header="Dados da empresa" style="margin-top:10px;">
 					<p:panelGrid columns="2" layout="grid" 
 						style="margin-top: 2px;"
 						styleClass="panelgrid-noborder"

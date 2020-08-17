@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<h1 class="aw-page-title">USINA</h1>
+		
+		<h:form id="frm">
+			Usina
+			
+			<p:messages autoUpdate="true" closable="true"/>			
+			
+			<p:toolbar style="margin-top:10px; ">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar" action="#{pesquisaUsinaBean}" update="@form" styleClass="botao-medio"/>
+					<p:separator />
+					<p:button value="Limpar" outcome="/usina/usina/pesquisaUsina" styleClass="botao-medio"/>
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/usina/usina/cadastroUsina"  styleClass="botao-medio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+						
+			<p:dataTable value="#{pesquisaUsinaBean.usinas}" var="usina" style="margin-top:10px" 
+				emptyMessage="Nenhuma uisina encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="codigo"  style="text-align: left;" styleClass="column-pequeno">
+					<h:outputText value="#{usina.codigo}"/>
+				</p:column>
+				
+				<p:column headerText="Consórcio"  style="text-align: left;">
+					<h:outputText value="#{usina.consorcio.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Nome"  style="text-align: left;">
+					<h:outputText value="#{usina.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Situação"  style="text-align: left;" styleClass="botao-medio">
+					<h:outputText value="#{usina.situacao}"/>
+				</p:column>
+				
+				<p:column headerText="Potência"  style="text-align: left;" styleClass="botao-medio">
+					<h:outputText value="#{usina.potencia}"/>
+				</p:column>
+				
+				<p:column headerText="Art"  style="text-align: left;" styleClass="botao-medio">
+					<h:outputText value="#{usina.art}"/>
+				</p:column>
+				
+				<p:column headerText="Editar" styleClass="column-pequeno">
+					<p:button outcome="/usina/usina/cadastroUsina" icon="ui-icon-pencil" title="Editar">
+						<f:param name="usina" value="#{usina.codigo}" />
+					</p:button>
+				</p:column>
+				
+				<p:column headerText="Excluir" styleClass="column-pequeno">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="table" actionListener="#{pesquisaUsinaBean.excluir(usina.codigo)}">
+						<p:confirm header="Exclusão de usina" message="Tem certeza que deseja excluir a usina?"  icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>				
+			</p:dataTable>
+			
+			
+			<p:confirmDialog global="true">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </p:confirmDialog>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

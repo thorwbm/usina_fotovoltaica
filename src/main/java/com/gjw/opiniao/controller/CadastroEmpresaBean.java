@@ -23,23 +23,35 @@ public class CadastroEmpresaBean  implements Serializable {
 	private EmpresaService empresaService;
 	
 	private Empresa empresa;
+
+	String situacao = null;
 	
 	public CadastroEmpresaBean() {
 		empresa = new Empresa(); 
 	}
 
 	public String salvar() {
+		String situacao = "adicionada";
+		
+		if (isEditando()) {
+			situacao = "editada";
+		}
+		
 		empresa = empresaService.salvar(empresa);
-		FacesUtil.addInfoMessage("A empresa " + empresa.getNome() + " foi cadastrada com sucesso.");
+		FacesUtil.addInfoMessage("A empresa [" + empresa.getNome() + "] foi " + situacao + " com sucesso.");
 		return "pesquisaEmpresa.xhtml?faces-redirect=true";
 	}
 	
-	public boolean isEditando() {
-		
+	public boolean isEditando() {		
 		boolean teste = (empresa) != null;
+		situacao = "inserido";
+		
+		if(teste) {
+			teste =  ((Object) empresa.getCodigo()) != null;
 			if(teste) {
-				teste =  ((Object) empresa.getCodigo()) != null;
+				situacao = "editado";
 			}
+		}
 		return teste;
 	}
 }
