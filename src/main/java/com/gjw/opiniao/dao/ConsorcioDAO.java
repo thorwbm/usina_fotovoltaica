@@ -16,9 +16,9 @@ public class ConsorcioDAO  extends GenericoDAO<Consorcio, Long> implements Seria
 	public Consorcio buscarPorCodigo(Long codigoConsorcio) {
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append(" Select con from Consorcio con left join fetch con.endereco    edr ")
+		sb.append(" Select con from Consorcio con                                     ")
 		  .append("                               left join fetch con.responsavel res ")
-		  .append("                               left join fetch edr.cidade      cid ")
+		  .append("                               left join fetch con.cidade      cid ")
 		  .append("                               left join fetch cid.estado      est ")
 		  .append("                               left join fetch con.usinas      usi ")
 		  .append("  where  con.codigo = :codigoConsorcio                             ");

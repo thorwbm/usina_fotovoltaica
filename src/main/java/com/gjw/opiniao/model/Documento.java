@@ -1,21 +1,12 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Set;
 
 
 /**
@@ -23,8 +14,8 @@ import lombok.EqualsAndHashCode;
  * 
  */
 @Data
-@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
 @Table(name="documento")
 @NamedQuery(name="Documento.findAll", query="SELECT d FROM Documento d")
 public class Documento implements Serializable {
@@ -47,11 +38,13 @@ public class Documento implements Serializable {
 
 	//bi-directional many-to-one association to Documentacao
 	@OneToMany(mappedBy="documento")
-	private Set<Documentacao> documentacaos;
+	private Set<Documentacao> documentacoes;
 
 	//bi-directional many-to-one association to Formulario
 	@OneToMany(mappedBy="documento")
 	private Set<Formulario> formularios;
 
-	
+	public Documento() {
+	}
+
 }

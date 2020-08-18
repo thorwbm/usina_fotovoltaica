@@ -1,23 +1,9 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
 /**
@@ -25,30 +11,37 @@ import lombok.EqualsAndHashCode;
  * 
  */
 @Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name="usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="alterado_em")
-	private Timestamp alteradoEm;
+	private Date alteradoEm;
 
+	private String cep;
+
+	private String complemento;
+
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="criado_em")
-	private Timestamp criadoEm;
+	private Date criadoEm;
 
 	private String email;
 
 	private String login;
-	
+
+	private String logradouro;
+
 	private String nome;
+
+	private String numero;
 
 	private String senha;
 
@@ -56,12 +49,13 @@ public class Usuario implements Serializable {
 
 	private String telefone;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ultimo_acesso")
-	private Timestamp ultimoAcesso;
+	private Date ultimoAcesso;
 
-	//bi-directional many-to-one association to Endereco
+	//bi-directional many-to-one association to Cidade
 	@ManyToOne
-	private Endereco endereco;
+	private Cidade cidade;
 
 	//bi-directional many-to-many association to Grupo
 	@ManyToMany
@@ -75,5 +69,136 @@ public class Usuario implements Serializable {
 			}
 		)
 	private Set<Grupo> grupos;
-	
+
+	public Usuario() {
+	}
+
+	public Long getCodigo() {
+		return this.codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
+	public Date getAlteradoEm() {
+		return this.alteradoEm;
+	}
+
+	public void setAlteradoEm(Date alteradoEm) {
+		this.alteradoEm = alteradoEm;
+	}
+
+	public String getCep() {
+		return this.cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getComplemento() {
+		return this.complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public Date getCriadoEm() {
+		return this.criadoEm;
+	}
+
+	public void setCriadoEm(Date criadoEm) {
+		this.criadoEm = criadoEm;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLogin() {
+		return this.login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getLogradouro() {
+		return this.logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getNumero() {
+		return this.numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getSenha() {
+		return this.senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTelefone() {
+		return this.telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Date getUltimoAcesso() {
+		return this.ultimoAcesso;
+	}
+
+	public void setUltimoAcesso(Date ultimoAcesso) {
+		this.ultimoAcesso = ultimoAcesso;
+	}
+
+	public Cidade getCidade() {
+		return this.cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Set<Grupo> getGrupos() {
+		return this.grupos;
+	}
+
+	public void setGrupos(Set<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
 }

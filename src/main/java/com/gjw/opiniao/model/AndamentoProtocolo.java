@@ -18,13 +18,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 
-/**
- * The persistent class for the andamento_protocolo database table.
- * 
- */
-@Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
 @Table(name="andamento_protocolo")
 @NamedQuery(name="AndamentoProtocolo.findAll", query="SELECT a FROM AndamentoProtocolo a")
 public class AndamentoProtocolo implements Serializable {
@@ -34,7 +30,7 @@ public class AndamentoProtocolo implements Serializable {
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_detalhamento")
@@ -46,6 +42,7 @@ public class AndamentoProtocolo implements Serializable {
 	@ManyToOne
 	private Protocolo protocolo;
 
-	
+	public AndamentoProtocolo() {
+	}
 
 }

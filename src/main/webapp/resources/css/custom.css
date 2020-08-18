@@ -49,3 +49,17 @@ body {
 .ui-selectonemenu{
 	width:100% !important;
 }
+
+
+
+.tamanho-minimo-pequeno {
+	    min-width: 50px;
+}
+
+.tamanho-minimo-medio {
+	    min-width: 100px;
+}
+
+.tamanho-minimo-grande {
+	    min-width: 150px;
+}

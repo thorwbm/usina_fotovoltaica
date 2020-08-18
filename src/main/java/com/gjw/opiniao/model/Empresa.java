@@ -1,19 +1,8 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
 /**
@@ -21,14 +10,12 @@ import lombok.EqualsAndHashCode;
  * 
  */
 @Entity
-@Data
 @Table(name="empresa")
 @NamedQuery(name="Empresa.findAll", query="SELECT e FROM Empresa e")
 public class Empresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long codigo;
@@ -39,32 +26,45 @@ public class Empresa implements Serializable {
 	@OneToMany(mappedBy="empresa")
 	private Set<Protocolo> protocolos;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Empresa other = (Empresa) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
+	public Empresa() {
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
+	public Long getCodigo() {
+		return this.codigo;
 	}
 
-	
-	
-	
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Set<Protocolo> getProtocolos() {
+		return this.protocolos;
+	}
+
+	public void setProtocolos(Set<Protocolo> protocolos) {
+		this.protocolos = protocolos;
+	}
+
+	public Protocolo addProtocolo(Protocolo protocolo) {
+		getProtocolos().add(protocolo);
+		protocolo.setEmpresa(this);
+
+		return protocolo;
+	}
+
+	public Protocolo removeProtocolo(Protocolo protocolo) {
+		getProtocolos().remove(protocolo);
+		protocolo.setEmpresa(null);
+
+		return protocolo;
+	}
+
 }

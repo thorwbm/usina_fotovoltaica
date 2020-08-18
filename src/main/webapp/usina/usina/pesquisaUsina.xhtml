@@ -15,13 +15,13 @@
 			
 			<p:toolbar style="margin-top:10px; ">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" action="#{pesquisaUsinaBean}" update="@form" styleClass="botao-medio"/>
+					<p:commandButton value="Pesquisar" action="#{pesquisaUsinaBean}" update="@form" styleClass="tamanho-minimo-medio"/>
 					<p:separator />
-					<p:button value="Limpar" outcome="/usina/usina/pesquisaUsina" styleClass="botao-medio"/>
+					<p:button value="Limpar" outcome="/usina/usina/pesquisaUsina" styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
-					<p:button value="Novo" outcome="/usina/usina/cadastroUsina"  styleClass="botao-medio"/>
+					<p:button value="Novo" outcome="/usina/usina/cadastroUsina"  styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 						
@@ -29,27 +29,27 @@
 				emptyMessage="Nenhuma uisina encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
 				
-				<p:column headerText="codigo"  style="text-align: left;" styleClass="column-pequeno">
+				<p:column headerText="codigo"  style="text-align: center;" styleClass="column-pequeno">
 					<h:outputText value="#{usina.codigo}"/>
 				</p:column>
 				
-				<p:column headerText="Consórcio"  style="text-align: left;">
+				<p:column headerText="Consórcio" >
 					<h:outputText value="#{usina.consorcio.nome}"/>
 				</p:column>
 				
-				<p:column headerText="Nome"  style="text-align: left;">
+				<p:column headerText="Nome"  style="text-align: center;">
 					<h:outputText value="#{usina.nome}"/>
 				</p:column>
 				
-				<p:column headerText="Situação"  style="text-align: left;" styleClass="botao-medio">
+				<p:column headerText="Situação"  style="text-align: center;" styleClass="botao-medio">
 					<h:outputText value="#{usina.situacao}"/>
 				</p:column>
 				
-				<p:column headerText="Potência"  style="text-align: left;" styleClass="botao-medio">
-					<h:outputText value="#{usina.potencia}"/>
+				<p:column headerText="Potência"  style="text-align: center;" styleClass="botao-medio">
+					<h:outputText value="#{usina.potencia.nome} - #{usina.potencia.grandeza}"/>
 				</p:column>
 				
-				<p:column headerText="Art"  style="text-align: left;" styleClass="botao-medio">
+				<p:column headerText="Art"  styleClass="botao-medio">
 					<h:outputText value="#{usina.art}"/>
 				</p:column>
 				

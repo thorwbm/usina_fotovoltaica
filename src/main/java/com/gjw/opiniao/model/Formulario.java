@@ -1,21 +1,8 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
 /**
@@ -23,18 +10,15 @@ import lombok.EqualsAndHashCode;
  * 
  */
 @Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name="formulario")
 @NamedQuery(name="Formulario.findAll", query="SELECT f FROM Formulario f")
 public class Formulario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_assinatura")
@@ -58,5 +42,71 @@ public class Formulario implements Serializable {
 	@ManyToOne
 	private Usina usina;
 
-	
+	public Formulario() {
+	}
+
+	public Long getCodigo() {
+		return this.codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
+	public Date getDataAssinatura() {
+		return this.dataAssinatura;
+	}
+
+	public void setDataAssinatura(Date dataAssinatura) {
+		this.dataAssinatura = dataAssinatura;
+	}
+
+	public Date getDataFinalizacao() {
+		return this.dataFinalizacao;
+	}
+
+	public void setDataFinalizacao(Date dataFinalizacao) {
+		this.dataFinalizacao = dataFinalizacao;
+	}
+
+	public String getObservacao() {
+		return this.observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public String getResponsavel() {
+		return this.responsavel;
+	}
+
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	public String getSituacao() {
+		return this.situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+
+	public Documento getDocumento() {
+		return this.documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
+	}
+
+	public Usina getUsina() {
+		return this.usina;
+	}
+
+	public void setUsina(Usina usina) {
+		this.usina = usina;
+	}
+
 }

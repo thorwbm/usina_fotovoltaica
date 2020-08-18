@@ -34,8 +34,6 @@ public class CadastroConsorcioBean implements Serializable {
 	String situacao = null;
 	
 	private Cidade cidade;
-	private Estado estado;
-	
 	
 	public CadastroConsorcioBean() {
 			
@@ -63,17 +61,15 @@ public class CadastroConsorcioBean implements Serializable {
 	}
 	
 	public String salvar() {				
-		if(consorcio.getEndereco().getCep() != null) {
-			cidade = buscaCidade(consorcio.getEndereco().getCidade().getNome(), consorcio.getEndereco().getCidade().getEstado().getSigla());
+		if(consorcio.getCep() != null) {
+			cidade = buscaCidade(consorcio.getCidade().getNome(), consorcio.getCidade().getEstado().getSigla());
 			if (cidade == null) {
 				FacesUtil.addErroMessage("O conjunto Estado / Cidade não é válido!");
 				return null;
 			} else {
-				consorcio.getEndereco().setCidade(cidade);
+				consorcio.setCidade(cidade);
 			}
-		} else {
-			consorcio.setEndereco(null);
-		}	
+		} 
 	
 		consorcio = consorcioService.salvar(consorcio);
 		FacesUtil.addInfoMessage("O Consórcio [" + consorcio.getNome() + "] foi " + situacao + " com sucesso.");

@@ -51,9 +51,12 @@
 						
 						<p:outputLabel value="localização GMS" for="gms"/>
 						<p:inputText id="gms" value="#{cadastroUsinaBean.usina.localizacaoGms}"/>
-						
+												
 						<p:outputLabel value="Potência" for="potencia"/>
-						<p:inputText id="potencia" value="#{cadastroUsinaBean.usina.potencia}"/>
+				    	<p:selectOneMenu  id="potencia" value="#{cadastroUsinaBean.usina.potencia}"  label="Potência"  style="width: 100% !important" converter="#{potenciaConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroUsinaBean.potencias}" var="potencia" itemValue="#{potencia}" itemLabel="#{potencia.nome} - #{potencia.grandeza}"/>
+						</p:selectOneMenu>	
 						
 						<p:outputLabel value="ART" for="art"/>
 						<p:inputText id="art" value="#{cadastroUsinaBean.usina.art}"/>
@@ -61,13 +64,84 @@
 						<p:outputLabel value="Situação" for="situacao"/>
 				    	<p:selectOneMenu  id="situacao" value="#{cadastroUsinaBean.usina.situacao}"  label="situacao"  style="width: 100% !important">
 							<f:selectItem itemLabel="Selecione aqui..." />
-							<f:selectItems value="#{cadastroUsinaBean.situacao}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
-						</p:selectOneMenu>
-						
+							<f:selectItems value="#{cadastroUsinaBean.situacoesPprocesso}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
+						</p:selectOneMenu>						
 						
 					</p:panelGrid>
 				</p:panel>
-			</div>			
+			</div>		
+			
+			<div class="ui-fluid">
+				<p:panel header="Endereço do Usina" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">
+						
+						<p:outputLabel value="CEP" for="cep"/>
+						<p:inputText id="cep" value="#{cadastroUsinaBean.usina.cep}"/>							
+						
+						<p:outputLabel value="Logadouro" for="logradouro"/>
+						<p:inputText id="logradouro" value="#{cadastroUsinaBean.usina.logradouro}"/>
+													
+						<p:outputLabel value="Número" for="numero"/>
+						<p:inputText id="numero" value="#{cadastroUsinaBean.usina.numero}"/>
+												
+						<p:outputLabel value="Complemento" for="complemento"/>
+						<p:inputText id="complemento" value="#{cadastroUsinaBean.usina.complemento}"/>
+						
+						<p:outputLabel value="Bairro" for="bairro"/>
+						<p:inputText id="bairro" value="#{cadastroUsinaBean.usina.bairro}"/>
+															
+						<p:outputLabel value="Estado" for="estado"/>						
+						<p:selectOneMenu id="estado" value="#{cadastroUsinaBean.usina.cidade.estado}" label="Estado" converter="#{estadoConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroUsinaBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
+							
+						</p:selectOneMenu>
+															
+						<p:outputLabel value="cidade" for="cidade"/>
+						<p:inputText id="cidade" value="#{cadastroUsinaBean.usina.cidade.nome}"/>
+															
+					</p:panelGrid>
+				</p:panel>
+			</div>				
+			
+			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documento" styleClass="margem-top-media margem-bottom-grande" 
+				emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="tableDocumento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Documento" style="text-align: left;">
+					<h:outputText value="#{documento.documento.nome}"/>
+				</p:column>
+				
+				<p:column headerText="situacao" style="text-align: left;">
+					<h:outputText value="#{documento.situacao}"/>
+				</p:column>
+				
+				<p:column headerText="Postagem" style="text-align: left;">
+					<h:outputText value="#{documento.dataPostagem}"/>
+				</p:column>
+				
+			</p:dataTable>
+			
+			<p:dataTable value="#{cadastroUsinaBean.usina.formularios}" var="formulario" styleClass="margem-top-media margem-bottom-grande" 
+				emptyMessage="Nenhuma formulario encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" id="tableFormulario" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Formulário" style="text-align: left;">
+					<h:outputText value="#{formulario.documento.nome}"/>
+				</p:column>
+				
+				<p:column headerText="situacao" style="text-align: left;">
+					<h:outputText value="#{formulario.situacao}"/>
+				</p:column>
+				
+				<p:column headerText="Postagem" style="text-align: left;">
+					<h:outputText value="#{formulario.dataFinalizacao}"/>
+				</p:column>
+				
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 	

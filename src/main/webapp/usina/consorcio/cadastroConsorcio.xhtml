@@ -68,25 +68,25 @@
 						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">
 						
 						<p:outputLabel value="CEP" for="cep"/>
-						<p:inputText id="cep" value="#{cadastroConsorcioBean.consorcio.endereco.cep}"/>							
+						<p:inputText id="cep" value="#{cadastroConsorcioBean.consorcio.cep}"/>							
 						
 						<p:outputLabel value="Logadouro" for="logradouro"/>
-						<p:inputText id="logradouro" value="#{cadastroConsorcioBean.consorcio.endereco.logradouro}"/>
+						<p:inputText id="logradouro" value="#{cadastroConsorcioBean.consorcio.logradouro}"/>
 													
 						<p:outputLabel value="Número" for="numero"/>
-						<p:inputText id="numero" value="#{cadastroConsorcioBean.consorcio.endereco.numero}"/>
+						<p:inputText id="numero" value="#{cadastroConsorcioBean.consorcio.numero}"/>
 												
 						<p:outputLabel value="Complemento" for="complemento"/>
-						<p:inputText id="complemento" value="#{cadastroConsorcioBean.consorcio.endereco.complemento}"/>
+						<p:inputText id="complemento" value="#{cadastroConsorcioBean.consorcio.complemento}"/>
 						
 						<p:outputLabel value="Bairro" for="bairro"/>
-						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.endereco.bairro}"/>
+						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.bairro}"/>
 															
 						<p:outputLabel value="Estado" for="estado"/>
-						<p:inputText id="estado" value="#{cadastroConsorcioBean.consorcio.endereco.cidade.estado.sigla}"/>
+						<p:inputText id="estado" value="#{cadastroConsorcioBean.consorcio.cidade.estado.sigla}"/>
 															
 						<p:outputLabel value="cidade" for="cidade"/>
-						<p:inputText id="cidade" value="#{cadastroConsorcioBean.consorcio.endereco.cidade.nome}"/>
+						<p:inputText id="cidade" value="#{cadastroConsorcioBean.consorcio.cidade.nome}"/>
 															
 					</p:panelGrid>
 				</p:panel>

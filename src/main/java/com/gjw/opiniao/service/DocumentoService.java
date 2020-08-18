@@ -38,4 +38,13 @@ public class DocumentoService implements Serializable {
 			throw new NegocioException("O documento não pode ser cadastrado!!!", e);
 		}
 	}
+
+	public void cadastrarDocomentos(Long usinaId)  {
+		try {
+			documentoDao.carga_inicial_documentacao(usinaId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

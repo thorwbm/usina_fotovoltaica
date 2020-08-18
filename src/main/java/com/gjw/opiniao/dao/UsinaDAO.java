@@ -13,4 +13,21 @@ public class UsinaDAO extends GenericoDAO<Usina, Long> implements Serializable {
 		return Usina.class;
 	}
 
+	public Usina buscarPorCodigo(Long usinaId) {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(" Select usi from Usina usi join fetch usi.potencia      pot ")
+		  .append("                           join fetch usi.consorcio     con ")
+		  .append("                      left join fetch usi.cidade        cid ")
+		  .append("                      left join fetch usi.protocolos    pro ")
+		  .append("                      left join fetch usi.formularios   frm ")
+		  .append("                      left join fetch usi.documentacoes doc ")
+		  .append("                      left join fetch usi.usina_origem  usn ")
+		  .append(" where usi.codigo = :usinaId");
+		
+		return getEntityManager().createQuery(sb.toString(), Usina.class)
+				.setParameter("usinaId", usinaId)
+				.getSingleResult();
+	}
+
 }

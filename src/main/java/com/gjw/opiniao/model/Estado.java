@@ -1,28 +1,22 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
  * The persistent class for the estado database table.
  * 
  */
-@Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
 @Table(name="estado")
 @NamedQuery(name="Estado.findAll", query="SELECT e FROM Estado e")
 public class Estado implements Serializable {
@@ -32,7 +26,7 @@ public class Estado implements Serializable {
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	private String nome;
 
@@ -40,7 +34,10 @@ public class Estado implements Serializable {
 
 	//bi-directional many-to-one association to Cidade
 	@OneToMany(mappedBy="estado")
-	private Set<Cidade> cidades;
+	private Set<Cidade> cidades = new HashSet<Cidade>();
 
-	
+	public Estado() {
+	}
+
+
 }

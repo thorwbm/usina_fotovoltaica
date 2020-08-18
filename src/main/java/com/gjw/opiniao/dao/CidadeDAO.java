@@ -26,6 +26,4 @@ public class CidadeDAO extends GenericoDAO<Cidade, Long> implements Serializable
 		
 	}
 
-
-
 }

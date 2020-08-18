@@ -1,21 +1,8 @@
 package com.gjw.opiniao.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 
 /**
@@ -23,18 +10,15 @@ import lombok.EqualsAndHashCode;
  * 
  */
 @Entity
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name="grupo")
 @NamedQuery(name="Grupo.findAll", query="SELECT g FROM Grupo g")
 public class Grupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private long codigo;
+	private Long codigo;
 
 	private String descricao;
 
@@ -57,6 +41,47 @@ public class Grupo implements Serializable {
 	@ManyToMany(mappedBy="grupos")
 	private Set<Usuario> usuarios;
 
-	
+	public Grupo() {
+	}
+
+	public Long getCodigo() {
+		return this.codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Set<Permissao> getPermissoes() {
+		return this.permissoes;
+	}
+
+	public void setPermissoes(Set<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
+	public Set<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(Set<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
 
 }

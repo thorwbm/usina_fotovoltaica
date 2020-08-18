@@ -48,7 +48,7 @@ public class PesquisaUsinaBean implements Serializable{
 		limpar(); 
 		if(!FacesUtil.isPostback()){
 			consorcios = consorcioService.listar();
-			limpar();
+			
 		}
 	}
 	

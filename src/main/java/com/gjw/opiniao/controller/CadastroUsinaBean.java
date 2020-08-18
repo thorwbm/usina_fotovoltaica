@@ -1,7 +1,9 @@
 package com.gjw.opiniao.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,11 +11,17 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gjw.opiniao.model.Cidade;
 import com.gjw.opiniao.model.Consorcio;
+import com.gjw.opiniao.model.Estado;
+import com.gjw.opiniao.model.Potencia;
 import com.gjw.opiniao.model.SituacaoProcesso;
-import com.gjw.opiniao.model.TipoDocumento;
 import com.gjw.opiniao.model.Usina;
+import com.gjw.opiniao.service.CidadeService;
 import com.gjw.opiniao.service.ConsorcioService;
+import com.gjw.opiniao.service.DocumentoService;
+import com.gjw.opiniao.service.EstadoService;
+import com.gjw.opiniao.service.PotenciaService;
 import com.gjw.opiniao.service.UsinaService;
 import com.gjw.opiniao.util.jsf.FacesUtil;
 
@@ -32,10 +40,27 @@ public class CadastroUsinaBean implements Serializable{
 	@Inject
 	private ConsorcioService consorcioService;
 	
+	@Inject
+    private PotenciaService potenciaService;
+	
+	@Inject
+	private CidadeService cidadeService;
+	
+	@Inject
+	private DocumentoService documentoService;
+	
+	@Inject
+	private EstadoService	estadoService;
+	
 	private Usina usina; 
+	private Cidade cidade;
+	private Estado estadoSelecionado;
+	
+	private List<Estado> estados;
 	private List<Consorcio> consorcios;
 	private List<Usina> usinas;
 	private List<SituacaoProcesso> situacoesPprocesso;
+	private List<Potencia> potencias;
 
 	String situacao = null;
 	
@@ -45,11 +70,22 @@ public class CadastroUsinaBean implements Serializable{
 	
 	@PostConstruct
 	public void inicializar() {
+		
 		if(!FacesUtil.isPostback()) {
+			estadoSelecionado = new Estado();
 			usina = new Usina();
+			estados = new ArrayList<Estado>();
+			
+			estadoSelecionado = estadoService.pesquisarPorCodigo(13L);
+			
+			usina.setSituacao(SituacaoProcesso.ATIVO);
+			usina.getCidade().setEstado(estadoSelecionado);
+			
 			consorcios = consorcioService.listar();
 			usinas = usinaService.listar();
 			situacoesPprocesso =  Arrays.asList(SituacaoProcesso.values());
+			potencias = potenciaService.listar();
+			estados = estadoService.listar();
 			
 		}
 	}
@@ -68,8 +104,26 @@ public class CadastroUsinaBean implements Serializable{
 	}
 	
 	public String salvar() {
-		usina = usinaService.salvar(usina);
-		FacesUtil.addInfoMessage("A usina [" + usina.getNome() + "] foi " + situacao + " com sucesso.");
-		return "pesquisaEmpresa.xhtml?faces-redirect=true";
+		cidade = cidadeService.buscaCidade(usina.getCidade().getNome(), usina.getCidade().getEstado().getSigla());
+		
+		try {
+			if (cidade !=null) {			
+				usina.setDataInicio(new Date());
+				usina.setCidade(cidade);
+				usina = usinaService.salvar(usina);
+				if(situacao == "inserido") {
+					documentoService.cadastrarDocomentos(usina.getCodigo());
+				}
+				
+				FacesUtil.addInfoMessage("A usina [" + usina.getNome() + "] foi " + situacao + " com sucesso.");
+				return "pesquisaUsina.xhtml?faces-redirect=true";
+			} else {
+				FacesUtil.addErroMessage("O par Cidade / Estado não existe cadastrado neste sistema.");
+				return null;
+			}
+		} catch (Exception e) {
+			FacesUtil.addErroMessage("Ocorreu um problema durante o cadastro.");
+			return null;
+		}
 	}
 }
