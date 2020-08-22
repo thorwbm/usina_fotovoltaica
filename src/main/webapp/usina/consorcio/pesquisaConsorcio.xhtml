@@ -15,7 +15,7 @@
 			
 			<p:toolbar style="margin-top:10px; ">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" action="#{pesquisaConsorcioBean.limpar}" update="@form" styleClass="tamanho-minimo-medio"/>
+					<p:commandButton value="Pesquisar" action="#{pesquisaConsorcioBean.pesquisar}" update="@form" styleClass="tamanho-minimo-medio"/>
 					<p:separator />
 					<p:button value="Limpar" outcome="/usina/consorcio/pesquisaConsorcio" styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
@@ -24,6 +24,18 @@
 					<p:button value="Novo" outcome="/usina/consorcio/cadastroConsorcio" styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
 			</p:toolbar>
+						
+			<div class="ui-fluid">
+				<p:panel header="Pesquisa" styleClass="margem-top-media">
+					<p:panelGrid columns="2" layout="grid"  styleClass="margem-top-pequena panelgrid-noborder" 
+					             columnClasses="ui-grid-col-1, ui-grid-col-5">
+					    
+						<p:outputLabel value="Consórcio" for="pesquisaConsorcio"/>
+						<p:inputText id="pesquisaConsorcio" value="#{pesquisaConsorcioBean.consorcioFilter.nome}"/>
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>
 						
 			<p:dataTable value="#{pesquisaConsorcioBean.consorcios}" var="consorcio" style="margin-top:10px" 
 				emptyMessage="Nenhum consorcio encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"

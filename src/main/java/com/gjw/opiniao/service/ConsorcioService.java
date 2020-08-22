@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.gjw.opiniao.dao.ConsorcioDAO;
+import com.gjw.opiniao.filter.ConsorcioFilter;
 import com.gjw.opiniao.model.Consorcio;
 
 public class ConsorcioService implements Serializable {
@@ -37,5 +38,9 @@ public class ConsorcioService implements Serializable {
 		} catch (Exception e) {
 			throw new NegocioException("O Consórcio não pode ser cadastrado!!!", e);
 		}
+	}
+
+	public List<Consorcio> pesquisar(ConsorcioFilter consorcioFilter) {
+		return consorcioDao.pesquisar(PesquisaService.carregaListaParametrosPesquisa(consorcioFilter));
 	}
 }

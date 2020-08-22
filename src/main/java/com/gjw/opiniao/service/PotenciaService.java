@@ -19,4 +19,14 @@ public class PotenciaService implements Serializable{
 		return potenciaDao.listar("nome", "asc");
 	}
 	
+	public String montarListaPotencia(List<Potencia> potencias) {
+		String retorno = "";
+		
+		for(Potencia potencia : potencias) {
+			retorno = retorno + potencia.getNome() + ";";
+		}
+		
+		return retorno;
+	}
+	
 }

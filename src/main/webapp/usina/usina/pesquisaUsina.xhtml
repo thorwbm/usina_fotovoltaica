@@ -15,7 +15,7 @@
 			
 			<p:toolbar style="margin-top:10px; ">
 				<p:toolbarGroup>
-					<p:commandButton value="Pesquisar" action="#{pesquisaUsinaBean}" update="@form" styleClass="tamanho-minimo-medio"/>
+					<p:commandButton value="Pesquisar" action="#{pesquisaUsinaBean.pesquisar}" update="@form" styleClass="tamanho-minimo-medio"/>
 					<p:separator />
 					<p:button value="Limpar" outcome="/usina/usina/pesquisaUsina" styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
@@ -23,7 +23,25 @@
 				<p:toolbarGroup align="right">
 					<p:button value="Novo" outcome="/usina/usina/cadastroUsina"  styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
-			</p:toolbar>
+			</p:toolbar>			
+			
+			<div class="ui-fluid">
+				<p:panel header="Pesquisa" styleClass="margem-top-media">
+					<p:panelGrid columns="2" layout="grid"  styleClass="margem-top-pequena panelgrid-noborder" 
+					             columnClasses="ui-grid-col-1, ui-grid-col-5">
+					             
+						<p:outputLabel value="Consórcio" for="pesquisaConsorcio" />
+						<p:selectOneMenu id="pesquisaConsorcio" value="#{pesquisaUsinaBean.usinaFilter.consorcio}" style="width:100%" converter="#{consorcioConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{pesquisaUsinaBean.consorcios}" var="consorcio" itemValue="#{consorcio}" itemLabel="#{consorcio.nome}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Usina" for="pesquisaUsina"/>
+						<p:inputText id="pesquisaUsina" value="#{pesquisaUsinaBean.usinaFilter.nome}"/>
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>
 						
 			<p:dataTable value="#{pesquisaUsinaBean.usinas}" var="usina" style="margin-top:10px" 
 				emptyMessage="Nenhuma uisina encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"

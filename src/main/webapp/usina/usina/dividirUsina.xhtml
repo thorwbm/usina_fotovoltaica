@@ -8,13 +8,13 @@
 	
 	<ui:define name="content">
 		<f:metadata>
-			<f:viewParam name="usina" value="#{dividirUsinaBean.usina}" converter="#{usinaConverter}"/>
+			<o:viewParam name="usina" value="#{dividirUsinaBean.usina}" converter="#{usinaConverter}"/>
+			<f:event listener="#{dividirUsinaBean.inicializar}" type="preRenderView" />
 		</f:metadata>
 		<h1 class="aw-page-title">USINA</h1>
 		
 		<h:form id="frm">
 			Dividir Usina
-			
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
 					<p:commandButton value="Dividir" id="botaoDividir" action="#{dividirUsinaBean.dividirUsina}" update="@form" styleClass="tamanho-minimo-medio"/>
@@ -29,7 +29,7 @@
 			</p:toolbar>
 			
 			<p:messages autoUpdate="true" closable="true" />
-			
+						
 			<div class="ui-fluid">
 				<p:panel header="Dados da usina" style="margin-top:10px;">
 					<p:panelGrid columns="4" layout="grid" 
@@ -43,17 +43,17 @@
 						<p:outputLabel value="Nome"/>
 						<p:inputText value="#{dividirUsinaBean.usina.nome}" readonly="true"/>
 												
-						<p:outputLabel value="localização UTM" for="utm"/>
-						<p:inputText id="utm" value="#{dividirUsinaBean.usina.localizacaoUtm}" readonly="true"/>
+						<p:outputLabel value="localização UTM"/>
+						<p:inputText value="#{dividirUsinaBean.usina.localizacaoUtm}" readonly="true"/>
 						
-						<p:outputLabel value="localização GMS" for="gms"/>
-						<p:inputText id="gms" value="#{dividirUsinaBean.usina.localizacaoGms}" readonly="true"/>
+						<p:outputLabel value="localização GMS"/>
+						<p:inputText value="#{dividirUsinaBean.usina.localizacaoGms}" readonly="true"/>
 												
-						<p:outputLabel value="Potência" for="potencia"/>
-						<p:inputText id="potencia" value="#{dividirUsinaBean.usina.potencia.nome}" readonly="true"/>
+						<p:outputLabel value="Potência"/>
+						<p:inputText value="#{dividirUsinaBean.usina.potencia.nome}" readonly="true"/>
 				    							
-						<p:outputLabel value="ART" for="art"/>
-						<p:inputText id="art" value="#{dividirUsinaBean.usina.art}" readonly="true"/>
+						<p:outputLabel value="ART"/>
+						<p:inputText value="#{dividirUsinaBean.usina.art}" readonly="true"/>
 						
 						<p:outputLabel value="Situação"/>
 						<p:inputText value="#{dividirUsinaBean.usina.situacao.descricao}" readonly="true"/>
@@ -66,22 +66,50 @@
 			</div>		
 			
 			<div class="ui-fluid">
-				<p:panel header="Dados par a divisão" style="margin-top:10px;">
-					<p:panelGrid columns="2" layout="grid" 
+				<p:panel header="Adicionar potências" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
 						style="margin-top: 2px;"
 						styleClass="panelgrid-noborder"
-						columnClasses="ui-grid-col-1, ui-grid-col-5">								
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">								
 											
-						<h:outputLabel for="potencia" value="Potência:" />
-				        <p:selectCheckboxMenu id="potencia" value="#{dividirUsinaBean.potenciasSelecionadas}" label="Potências" multiple="true"
-				                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-				            <p:ajax event="itemUnselect" listener="#{checkboxView.onItemUnselect}" />
-				            <f:selectItems value="#{dividirUsinaBean.potencias}" />
-				        </p:selectCheckboxMenu>
+						<p:outputLabel value="Potência" for="potencia"/>
+				    	<p:selectOneMenu  id="potencia" value="#{dividirUsinaBean.potenciaSelecionada}"  label="Potência"  style="width: 100% !important" converter="#{potenciaConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{dividirUsinaBean.potencias}" var="potencia" itemValue="#{potencia}" itemLabel="#{potencia.nome} - #{potencia.grandeza}"/>
+						</p:selectOneMenu>
 										
+						<p:commandButton value="Adicionar" id="botaoAdicionar" action="#{dividirUsinaBean.adicionarPotencia}" update="tablePotencia" styleClass="tamanho-minimo-medio" 
+						                 ajax="false" process="this potencia"/>
+						<p:spacer/>
+						
 					</p:panelGrid>	
 				</p:panel>
 			</div>		
+			
+			<p:dataTable value="#{dividirUsinaBean.potenciasSelecionadas}" var="potencia" styleClass="margem-bottom-grande"
+				         emptyMessage="Não adicionada nenhuma potêcia!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				         paginatorPosition="bottom" id="tablePotencia" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Potência" styleClass="column-medio">
+					<h:outputText value="#{potencia.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Unidade" style="text-align: left;">
+					<h:outputText value="#{potencia.grandeza}"/>
+				</p:column>
+			
+				<p:column headerText="Excluir" styleClass="column-pequeno">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="tablePotencia" actionListener="#{dividirUsinaBean.removerPotencia(potencia)}">
+						<p:confirm header="Exclusão de potência" message="Tem certeza que deseja excluir esta potência?"  icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>				
+			</p:dataTable>
+			
+			
+			<p:confirmDialog global="true">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </p:confirmDialog>
 		</h:form>
 	</ui:define>
 	

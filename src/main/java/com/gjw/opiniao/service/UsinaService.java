@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.gjw.opiniao.dao.UsinaDAO;
+import com.gjw.opiniao.filter.UsinaFilter;
 import com.gjw.opiniao.model.Usina;
 
 public class UsinaService implements Serializable{
@@ -35,6 +36,15 @@ public class UsinaService implements Serializable{
 
 	public List<Usina> listar() {
 		return usinaDao.listar("nome", "asc");
+	}
+
+	public void dividirUsina(Long usinaCodiog, String potencias) {
+		usinaDao.dividirUsina(usinaCodiog, potencias);
+		
+	}
+
+	public List<Usina> pesquisar(UsinaFilter usinaFilter) {
+		return usinaDao.pesquisar(PesquisaService.carregaListaParametrosPesquisa(usinaFilter));
 	}
 
 }

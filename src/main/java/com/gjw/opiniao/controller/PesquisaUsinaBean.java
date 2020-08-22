@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gjw.opiniao.filter.UsinaFilter;
 import com.gjw.opiniao.model.Consorcio;
 import com.gjw.opiniao.model.Usina;
 import com.gjw.opiniao.service.ConsorcioService;
@@ -31,6 +32,7 @@ public class PesquisaUsinaBean implements Serializable{
 	private ConsorcioService consorcioService;
 	
 	private Usina usinaSelecionada;
+	private UsinaFilter usinaFilter;
 	
 	private List<Usina> usinas;
 	private List<Consorcio> consorcios;
@@ -48,6 +50,7 @@ public class PesquisaUsinaBean implements Serializable{
 		limpar(); 
 		if(!FacesUtil.isPostback()){
 			consorcios = consorcioService.listar();
+			usinaFilter = new UsinaFilter();
 			
 		}
 	}
@@ -61,5 +64,10 @@ public class PesquisaUsinaBean implements Serializable{
 		usinaService.excluir(usinaId);
 		limpar();
 	}
-		
+	
+	public void pesquisar() {
+		usinas = usinaService.pesquisar(usinaFilter);
+	}
+	
+			
 }

@@ -9,8 +9,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gjw.opiniao.filter.ConsorcioFilter;
 import com.gjw.opiniao.model.Consorcio;
 import com.gjw.opiniao.service.ConsorcioService;
+import com.gjw.opiniao.service.PesquisaService;
 import com.gjw.opiniao.util.jsf.FacesUtil;
 
 import lombok.Data;
@@ -28,6 +30,7 @@ public class PesquisaConsorcioBean implements Serializable{
 	private List<Consorcio> consorcios;
 	
 	private Consorcio consorcioSelecionado;
+	private ConsorcioFilter consorcioFilter;
 	
 	/**************************************** INICIALIZAR  ******************************************************************************/
 	public PesquisaConsorcioBean() {
@@ -36,6 +39,7 @@ public class PesquisaConsorcioBean implements Serializable{
 	
 	public void limpar() {
 		consorcios = consorcioService.listar();
+		consorcioFilter = new ConsorcioFilter();
 	}
 	
 	@PostConstruct
@@ -51,5 +55,9 @@ public class PesquisaConsorcioBean implements Serializable{
 	public void excluir(Long consorcioId) {
 		consorcioService.excluir(consorcioId);
 		limpar();
+	}
+	
+	public void pesquisar() {
+		consorcios =  consorcioService.pesquisar(consorcioFilter);
 	}
 }
