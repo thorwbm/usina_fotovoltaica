@@ -38,9 +38,6 @@ public class Potencia implements Serializable {
 
 	private int nome;
 
-	//bi-directional many-to-one association to Usina
-	@OneToMany(mappedBy="potencia")
-	private Set<Usina> usinas;
 
 	public Potencia() {
 	}

@@ -27,22 +27,18 @@ public class Documento implements Serializable {
 	@Column(name="id")
 	private Long codigo;
 
-	private String descricao;
-
 	private String nome;
 
 	private int obrigatorio;
 
 	@Enumerated(EnumType.STRING)
 	private TipoDocumento tipo;
+	
+	private String descricao;
 
 	//bi-directional many-to-one association to Documentacao
 	@OneToMany(mappedBy="documento")
 	private Set<Documentacao> documentacoes;
-
-	//bi-directional many-to-one association to Formulario
-	@OneToMany(mappedBy="documento")
-	private Set<Formulario> formularios;
 
 	public Documento() {
 	}

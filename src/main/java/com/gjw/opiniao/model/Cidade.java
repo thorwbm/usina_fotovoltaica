@@ -32,17 +32,15 @@ public class Cidade implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long codigo;
+	
+	private String nome;
 
 	@Column(name="codigo_ibge")
 	private int codigoIbge;
 
-	private String nome;
-
 	//bi-directional many-to-one association to Estado
 	@ManyToOne
 	private Estado estado = new Estado();
-
-	
 
 	public Cidade() {
 	}

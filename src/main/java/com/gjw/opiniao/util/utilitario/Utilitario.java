@@ -1,12 +1,14 @@
 package com.gjw.opiniao.util.utilitario;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -234,5 +236,54 @@ public class Utilitario {
         return json;
     }
 	
-
+	/**
+	 * Metodo Cria pasta
+	 * 
+	 * com base em um caminho absoluto e criada uma pasta
+	 * 
+	 * @param caminho
+	 */
+	
+	public static String criarPasta(String caminho) {
+		//FacesContext aFacesContext = FacesContext.getCurrentInstance();  
+        //ServletContext context = (ServletContext)aFacesContext.getExternalContext().getContext();  
+        String realPath = caminho;      
+        
+        String pasta = "";
+        String caminhoAux[] = realPath.split("/");
+        
+        for(String cam : caminhoAux) {
+        	pasta = pasta + "/" + cam;
+        	File dir = new File(pasta);
+            dir.mkdir();
+        }        
+        return pasta;
+	}
+	
+	/**
+	 * Metodo que recebe o nome de um arquivo e retorna a extensao do arquivo.
+	 * @param nomeArquivo
+	 * @return
+	 */
+	public static String capturarExtensaoArquivo(String nomeArquivo) {
+			String extensao = nomeArquivo;
+		    String aux[] =  extensao.split("\\.");
+		   
+		   for(String parte : aux) {
+			   extensao = parte;
+		   }
+		   
+	 	   return extensao;
+	   }
+	
+	/**
+	 * Metodo que remove todos os caracteres especiais e acentos
+	 * @param valorAcentuado
+	 * @return
+	 */
+	public static String removerAcentos(String valorAcentuado){
+		   return Normalizer
+		          .normalize(valorAcentuado, Normalizer.Form.NFD)
+		          .replaceAll("[^\\p{ASCII}]", "");
+		}
 }

@@ -27,39 +27,39 @@ public class Consorcio implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private Long codigo;
-
-	private String cep;
-
-	private String complemento;
 	
-	private String bairro;
-
-	private String contato;
+	private String nome;
 
 	@Column(name="cpf_cnpj")
 	private String cpfCnpj;
-
-	private String email;
 
 	private long identificador;
 
 	private String logradouro;
 
-	private String nome;
-
 	private String numero;
+	
+	private String cep;
+	
+	private String complemento;
+	
+	private String bairro;
+	
+	private String contato;
+	
+	private String email;
 
 	private String site;
 
 	private String telefone;
+	
+	//bi-directional many-to-one association to Responsavel
+	@ManyToOne
+	private Responsavel responsavel;
 
 	//bi-directional many-to-one association to Cidade
 	@ManyToOne
 	private Cidade cidade = new Cidade();
-
-	//bi-directional many-to-one association to Responsavel
-	@ManyToOne
-	private Responsavel responsavel;
 
 	//bi-directional many-to-one association to Usina
 	@OneToMany(mappedBy="consorcio")

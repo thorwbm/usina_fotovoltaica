@@ -58,6 +58,7 @@ public class CadastroUsinaBean implements Serializable{
 	
 	private List<Estado> estados;
 	private List<Consorcio> consorcios;
+	private List<Consorcio> comodatos;
 	private List<Usina> usinas;
 	private List<SituacaoProcesso> situacoesPprocesso;
 	private List<Potencia> potencias;
@@ -82,6 +83,7 @@ public class CadastroUsinaBean implements Serializable{
 			usina.getCidade().setEstado(estadoSelecionado);
 			
 			consorcios = consorcioService.listar();
+			comodatos = consorcioService.listar();
 			usinas = usinaService.listar();
 			situacoesPprocesso =  Arrays.asList(SituacaoProcesso.values());
 			potencias = potenciaService.listar();
@@ -125,5 +127,9 @@ public class CadastroUsinaBean implements Serializable{
 			FacesUtil.addErroMessage("Ocorreu um problema durante o cadastro.");
 			return null;
 		}
+	}
+	
+	public boolean isUsinaParticionada() {
+		return usina.getUsinas().size() > 0;
 	}
 }

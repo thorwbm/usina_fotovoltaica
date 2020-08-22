@@ -17,13 +17,13 @@
 			
 			<p:toolbar style="margin-top:15px">
 				<p:toolbarGroup>
-					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroConsorcioBean.salvar}" update="@form"  styleClass="botao-pequeno"/>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroConsorcioBean.salvar}" update="@form" styleClass="tamanho-minimo-medio"/>
 					<p:separator />
-					<p:button value="Limpar" outcome="/usina/consorcio/cadastroConsorcio" styleClass="botao-pequeno" />
+					<p:button value="Limpar" outcome="/usina/consorcio/cadastroConsorcio" styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
-					<p:button value="Voltar" outcome="/usina/consorcio/pesquisaConsorcio" styleClass="botao-pequeno"/>
+					<p:button value="Voltar" outcome="/usina/consorcio/pesquisaConsorcio" styleClass="tamanho-minimo-medio"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			
@@ -80,11 +80,14 @@
 						<p:inputText id="complemento" value="#{cadastroConsorcioBean.consorcio.complemento}"/>
 						
 						<p:outputLabel value="Bairro" for="bairro"/>
-						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.bairro}"/>
+						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.bairro}"/>																												
 															
-						<p:outputLabel value="Estado" for="estado"/>
-						<p:inputText id="estado" value="#{cadastroConsorcioBean.consorcio.cidade.estado.sigla}"/>
-															
+						<p:outputLabel value="Estado" for="estado"/>						
+						<p:selectOneMenu id="estado" value="#{CadastroConsorcioBean.consorcio.cidade.estado}" label="Estado" converter="#{estadoConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroConsorcioBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
+						</p:selectOneMenu>
+						
 						<p:outputLabel value="cidade" for="cidade"/>
 						<p:inputText id="cidade" value="#{cadastroConsorcioBean.consorcio.cidade.nome}"/>
 															

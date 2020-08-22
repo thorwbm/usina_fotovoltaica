@@ -90,13 +90,13 @@ public class Upload implements Serializable {
 		return diretorio.getDescricao() + vetor[tam-1];
 	}
 	
-	public String upload(FileUploadEvent event, Diretorio diretorio, String nomeArquivo) throws FileNotFoundException, IOException {
+	public String upload(FileUploadEvent event, String diretorio, String nomeArquivo) throws FileNotFoundException, IOException {
 		UploadedFile uf = event.getFile();   
         String arquivo = nomeArquivo + uf.getFileName().substring(uf.getFileName().lastIndexOf('.'));
         String[] vetor = arquivo.split("\\\\");
         int tam = vetor.length;
         
-        File f = new File(diretorio.getDescricao() + vetor[tam-1]);    
+        File f = new File(diretorio + vetor[tam-1]);    
                
         OutputStream os = null;   
         InputStream is = null;   
@@ -121,7 +121,7 @@ public class Upload implements Serializable {
             }
         }
 	        
-        return diretorio.getDescricao() + vetor[tam-1];
+        return diretorio + vetor[tam-1];
 	}
 	
 }

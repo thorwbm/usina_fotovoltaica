@@ -1,6 +1,8 @@
 package com.gjw.opiniao.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -12,6 +14,7 @@ import com.gjw.opiniao.model.Consorcio;
 import com.gjw.opiniao.model.Estado;
 import com.gjw.opiniao.service.CidadeService;
 import com.gjw.opiniao.service.ConsorcioService;
+import com.gjw.opiniao.service.EstadoService;
 import com.gjw.opiniao.util.jsf.FacesUtil;
 
 import lombok.Data;
@@ -28,12 +31,18 @@ public class CadastroConsorcioBean implements Serializable {
 	private ConsorcioService consorcioService;
 	
 	@Inject 
-	private CidadeService cidadeService;
+	private CidadeService cidadeService;	
+
+	@Inject
+	private EstadoService	estadoService;
 	
 	private Consorcio consorcio;
-	String situacao = null;
-	
 	private Cidade cidade;
+	private Estado estadoSelecionado;
+	private String situacao = null;
+	
+	private List<Estado> estados;
+	
 	
 	public CadastroConsorcioBean() {
 			
@@ -44,6 +53,12 @@ public class CadastroConsorcioBean implements Serializable {
 		if(!FacesUtil.isPostback()) {
 			consorcio = new Consorcio();
 			cidade = new Cidade();
+			estados = new ArrayList<Estado>();
+			
+			estadoSelecionado = estadoService.pesquisarPorCodigo(13L);
+			consorcio.getCidade().setEstado(estadoSelecionado);
+			
+			estados = estadoService.listar();
 		}
 	}
 

@@ -242,3 +242,27 @@ body {
 .tamanho-minimo-grande {
 	    min-width: 150px;
 }
+
+.cor_larajna{
+	background-color: #ffdfba !important;
+}
+
+.cor_verde{
+	background-color: #baffc9 !important;
+}
+
+.cor_azul{
+	background-color: #bae1ff !important;
+}
+
+.cor_neutra{
+	background-color: #F8F8FF !important;
+}
+
+.cor_amarela{
+	background-color: #ffffba !important;
+}
+
+.cor_vermelho{
+	background-color: #ffb3ba !important;
+}

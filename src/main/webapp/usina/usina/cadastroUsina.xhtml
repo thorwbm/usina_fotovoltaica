@@ -19,7 +19,11 @@
 				<p:toolbarGroup>
 					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroUsinaBean.salvar}" update="@form" styleClass="tamanho-minimo-medio"/>
 					<p:separator />
-	    			<p:button value="Limpar" outcome="/usina/usina/cadastroUsina" styleClass="tamanho-minimo-medio"/>
+	    			<p:button value="Limpar" outcome="/usina/usina/cadastroUsina" styleClass="tamanho-minimo-medio"/>	    			
+	    			<p:separator />
+	    			<p:button value="Dividir" outcome="/usina/usina/dividirUsina" styleClass="tamanho-minimo-medio">
+	    				<f:param name="usina" value="#{cadastroUsinaBean.usina.codigo}" />
+	    			</p:button>
 				</p:toolbarGroup>
 				
 				<p:toolbarGroup align="right">
@@ -65,12 +69,18 @@
 				    	<p:selectOneMenu  id="situacao" value="#{cadastroUsinaBean.usina.situacao}"  label="situacao"  style="width: 100% !important">
 							<f:selectItem itemLabel="Selecione aqui..." />
 							<f:selectItems value="#{cadastroUsinaBean.situacoesPprocesso}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
-						</p:selectOneMenu>						
+						</p:selectOneMenu>									
+						
+						<p:outputLabel value="Comodato" for="comodato"/>
+				    	<p:selectOneMenu  id="comodato" value="#{cadastroUsinaBean.usina.comodato}"  label="Comodato"  style="width: 100% !important" converter="#{consorcioConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroUsinaBean.comodatos}" var="comodato" itemValue="#{comodato}" itemLabel="#{comodato.nome}"/>
+						</p:selectOneMenu>			
 						
 					</p:panelGrid>
 				</p:panel>
 			</div>		
-			
+						
 			<div class="ui-fluid">
 				<p:panel header="Endereço do Usina" style="margin-top:10px;">
 					<p:panelGrid columns="4" layout="grid" 
@@ -97,7 +107,6 @@
 						<p:selectOneMenu id="estado" value="#{cadastroUsinaBean.usina.cidade.estado}" label="Estado" converter="#{estadoConverter}">
 							<f:selectItem itemLabel="Selecione aqui..." />
 							<f:selectItems value="#{cadastroUsinaBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
-							
 						</p:selectOneMenu>
 															
 						<p:outputLabel value="cidade" for="cidade"/>
@@ -107,41 +116,61 @@
 				</p:panel>
 			</div>				
 			
-			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documento" styleClass="margem-top-media margem-bottom-grande" 
+			<p:dataTable value="#{cadastroUsinaBean.usina.usinas}" var="usina" styleClass="margem-top-media margem-bottom-grande"
+			             rowStyleClass="#{documentacao.situacao.cor_css}" rendered="#{cadastroUsinaBean.usinaParticionada}"
+				         emptyMessage="Não existe compartilhamento!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				         paginatorPosition="bottom" id="tableCompartilhamento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Usina" style="text-align: left;">
+					<h:outputText value="#{usina.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Potência" styleClass="column-medio">
+					<h:outputText value="#{usina.potencia.nome} - #{usina.potencia.grandeza}"/>
+				</p:column>
+				
+				<p:column headerText="Visualizar" styleClass="column-medio">
+					<p:button outcome="/usina/usina/cadastroUsina" icon="ui-icon-search" title="Ir para">
+						<f:param name="usina" value="#{usina.codigo}" />
+					</p:button>
+				</p:column>		
+				
+			</p:dataTable>
+			
+			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documentacao" styleClass="margem-top-media margem-bottom-grande"
+			             rowStyleClass="#{documentacao.situacao.cor_css}" 
 				emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" id="tableDocumento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
 				
 				<p:column headerText="Documento" style="text-align: left;">
-					<h:outputText value="#{documento.documento.nome}"/>
+					<h:outputText value="#{documentacao.documento.nome}"/>
 				</p:column>
 				
-				<p:column headerText="situacao" style="text-align: left;">
-					<h:outputText value="#{documento.situacao}"/>
+				<p:column headerText="situacao" styleClass="column-medio">
+					<h:outputText value="#{documentacao.situacao.descricao}"/>
 				</p:column>
 				
-				<p:column headerText="Postagem" style="text-align: left;">
-					<h:outputText value="#{documento.dataPostagem}"/>
+				<p:column headerText="Arquivo" style="text-align: left;">
+					<h:outputText value="#{documentacao.arquivo}"/>
 				</p:column>
+				
+				<p:column headerText="Tipo" styleClass="column-medio">
+					<h:outputText value="#{documentacao.documento.tipo.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Identificador" styleClass="column-medio">
+					<h:outputText value="#{documentacao.identificador}"/>
+				</p:column>
+				
+				<p:column headerText="Editar" styleClass="column-pequeno">
+					<p:button outcome="/usina/usina/cadastroDocumentacao" icon="ui-icon-pencil" title="Editar">
+						<f:param name="documentacao" value="#{documentacao.codigo}" />
+					</p:button>
+				</p:column>		
 				
 			</p:dataTable>
 			
-			<p:dataTable value="#{cadastroUsinaBean.usina.formularios}" var="formulario" styleClass="margem-top-media margem-bottom-grande" 
-				emptyMessage="Nenhuma formulario encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom" id="tableFormulario" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
-				
-				<p:column headerText="Formulário" style="text-align: left;">
-					<h:outputText value="#{formulario.documento.nome}"/>
-				</p:column>
-				
-				<p:column headerText="situacao" style="text-align: left;">
-					<h:outputText value="#{formulario.situacao}"/>
-				</p:column>
-				
-				<p:column headerText="Postagem" style="text-align: left;">
-					<h:outputText value="#{formulario.dataFinalizacao}"/>
-				</p:column>
-				
-			</p:dataTable>
+			
 		</h:form>
 	</ui:define>
 	

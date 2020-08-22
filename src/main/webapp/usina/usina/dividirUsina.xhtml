@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<f:viewParam name="usina" value="#{dividirUsinaBean.usina}" converter="#{usinaConverter}"/>
+		</f:metadata>
+		<h1 class="aw-page-title">USINA</h1>
+		
+		<h:form id="frm">
+			Dividir Usina
+			
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Dividir" id="botaoDividir" action="#{dividirUsinaBean.dividirUsina}" update="@form" styleClass="tamanho-minimo-medio"/>
+					<p:separator />
+	    			<p:button value="Limpar" outcome="/usina/usina/dividirUsina" styleClass="tamanho-minimo-medio"/>	    			
+	    			
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usina/usina/pesquisaUsina" styleClass="tamanho-minimo-medio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados da usina" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">						
+						
+						<p:outputLabel value="Consórico" />
+						<p:inputText value="#{dividirUsinaBean.usina.consorcio.nome}" readonly="true"/>
+				    													
+						<p:outputLabel value="Nome"/>
+						<p:inputText value="#{dividirUsinaBean.usina.nome}" readonly="true"/>
+												
+						<p:outputLabel value="localização UTM" for="utm"/>
+						<p:inputText id="utm" value="#{dividirUsinaBean.usina.localizacaoUtm}" readonly="true"/>
+						
+						<p:outputLabel value="localização GMS" for="gms"/>
+						<p:inputText id="gms" value="#{dividirUsinaBean.usina.localizacaoGms}" readonly="true"/>
+												
+						<p:outputLabel value="Potência" for="potencia"/>
+						<p:inputText id="potencia" value="#{dividirUsinaBean.usina.potencia.nome}" readonly="true"/>
+				    							
+						<p:outputLabel value="ART" for="art"/>
+						<p:inputText id="art" value="#{dividirUsinaBean.usina.art}" readonly="true"/>
+						
+						<p:outputLabel value="Situação"/>
+						<p:inputText value="#{dividirUsinaBean.usina.situacao.descricao}" readonly="true"/>
+						
+						<p:outputLabel value="Comodato"/>
+						<p:inputText value="#{dividirUsinaBean.usina.comodato.nome}" readonly="true"/>
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>		
+			
+			<div class="ui-fluid">
+				<p:panel header="Dados par a divisão" style="margin-top:10px;">
+					<p:panelGrid columns="2" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5">								
+											
+						<h:outputLabel for="potencia" value="Potência:" />
+				        <p:selectCheckboxMenu id="potencia" value="#{dividirUsinaBean.potenciasSelecionadas}" label="Potências" multiple="true"
+				                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+				            <p:ajax event="itemUnselect" listener="#{checkboxView.onItemUnselect}" />
+				            <f:selectItems value="#{dividirUsinaBean.potencias}" />
+				        </p:selectCheckboxMenu>
+										
+					</p:panelGrid>	
+				</p:panel>
+			</div>		
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
