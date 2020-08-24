@@ -138,23 +138,23 @@
 			</p:dataTable>
 			
 			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documentacao" styleClass="margem-top-media margem-bottom-grande"
-			             rowStyleClass="#{documentacao.situacao.cor_css}" 
+			             rowStyleClass="#{documentacao.situacao.cor_css}"  
 				emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" id="tableDocumento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
 				
-				<p:column headerText="Documento" style="text-align: left;">
+				<p:column headerText="Documento" style="text-align: left;" >
 					<h:outputText value="#{documentacao.documento.nome}"/>
-				</p:column>
-				
-				<p:column headerText="situacao" styleClass="column-medio">
-					<h:outputText value="#{documentacao.situacao.descricao}"/>
 				</p:column>
 				
 				<p:column headerText="Arquivo" style="text-align: left;">
 					<h:outputText value="#{documentacao.arquivo}"/>
 				</p:column>
 				
-				<p:column headerText="Tipo" styleClass="column-medio">
+				<p:column headerText="situacao" styleClass="column-medio" >
+					<h:outputText value="#{documentacao.situacao.descricao}"/>
+				</p:column>
+				
+				<p:column headerText="Tipo" styleClass="column-medio" >
 					<h:outputText value="#{documentacao.documento.tipo.descricao}"/>
 				</p:column>
 				

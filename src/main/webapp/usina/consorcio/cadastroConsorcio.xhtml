@@ -83,7 +83,7 @@
 						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.bairro}"/>																												
 															
 						<p:outputLabel value="Estado" for="estado"/>						
-						<p:selectOneMenu id="estado" value="#{CadastroConsorcioBean.consorcio.cidade.estado}" label="Estado" converter="#{estadoConverter}">
+						<p:selectOneMenu id="estado" value="#{cadastroConsorcioBean.consorcio.cidade.estado}" label="Estado" converter="#{estadoConverter}">
 							<f:selectItem itemLabel="Selecione aqui..." />
 							<f:selectItems value="#{cadastroConsorcioBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
 						</p:selectOneMenu>

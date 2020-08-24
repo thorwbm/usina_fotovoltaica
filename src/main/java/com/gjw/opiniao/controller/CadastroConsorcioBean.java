@@ -1,7 +1,6 @@
 package com.gjw.opiniao.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -53,12 +52,11 @@ public class CadastroConsorcioBean implements Serializable {
 		if(!FacesUtil.isPostback()) {
 			consorcio = new Consorcio();
 			cidade = new Cidade();
-			estados = new ArrayList<Estado>();
+			estados = estadoService.listar();
 			
 			estadoSelecionado = estadoService.pesquisarPorCodigo(13L);
 			consorcio.getCidade().setEstado(estadoSelecionado);
 			
-			estados = estadoService.listar();
 		}
 	}
 

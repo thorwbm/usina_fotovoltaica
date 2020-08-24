@@ -55,15 +55,20 @@
 							<f:selectItems value="#{cadastroDocumentacaoBean.situacoesDocumentacao}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
 						</p:selectOneMenu>
 						
-						<p:outputLabel value="Anexar" for="anexar"/>
-						<p:fileUpload  id="anexar" value="#{cadastroDocumentacaoBean.uploadedFile}" mode="simple" />
-						<p:commandButton value="Enviar" ajax="false" actionListener="#{cadastroDocumentacaoBean.upload}" styleClass="tamanho-minimo-medio" />
-						<p:spacer/> 						
-                        						
+						<p:outputLabel value="Arquivo" for="arquivo"/>
+						<p:inputText id="arquivo" value="#{cadastroDocumentacaoBean.documentacao.arquivo}"/>
+						                       						
 						<p:outputLabel value="Observação" for="observacao"/>
 						<p:inputTextarea id="observacao" cols="10" value="#{cadastroDocumentacaoBean.documentacao.observacao}"/>	
+												
+						<p:outputLabel value="Anexar" for="anexar"/>
+						<p:fileUpload  id="anexar" value="#{cadastroDocumentacaoBean.uploadedFile}" mode="simple" />
 						
-											
+						<p:spacer/> 	
+						<p:spacer/> 	
+						
+						<p:commandButton value="Enviar" ajax="false" actionListener="#{cadastroDocumentacaoBean.upload}" styleClass="tamanho-minimo-medio" />
+						<p:spacer/> 	
 						
 					</p:panelGrid>
 				</p:panel>

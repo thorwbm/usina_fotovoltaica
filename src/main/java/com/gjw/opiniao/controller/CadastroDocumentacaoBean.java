@@ -115,7 +115,11 @@ public class CadastroDocumentacaoBean implements Serializable {
 		    out.write(uploadedFile.getContent());
 		    out.close();
 		 
-		    FacesUtil.addInfoMessage("Upload do arquivo [" + nomeArquivo + "] efetuado com sucesso.");
+		    if(documentacao.getSituacao() == SituacaoDocumentacao.AGUARDANDO) {		    	
+		    		documentacao.setSituacao(SituacaoDocumentacao.ENVIADO);		    	
+		    }
+		    
+		    FacesUtil.addInfoMessage("Upload do arquivo [" + nomeArquivo + "] efetuado com sucesso. PRECISA SALVAR O CADASTRO !!!");
 		  } catch(IOException e) {
 		    FacesContext.getCurrentInstance().addMessage(
 		              null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro", e.getMessage()));
