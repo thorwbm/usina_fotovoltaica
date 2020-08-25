@@ -21,7 +21,11 @@
 					<p:separator />
 	    			<p:button value="Limpar" outcome="/usina/usina/cadastroUsina" styleClass="tamanho-minimo-medio"/>	    			
 	    			<p:separator />
-	    			<p:button value="Dividir" outcome="/usina/usina/dividirUsina" styleClass="tamanho-minimo-medio">
+	    			<p:button value="Particionar" outcome="/usina/usina/dividirUsina" styleClass="tamanho-minimo-medio">
+	    				<f:param name="usina" value="#{cadastroUsinaBean.usina.codigo}" />
+	    			</p:button>
+	    			<p:separator />
+	    			<p:button value="Protocolo" outcome="/usina/usina/protocoloUsina" styleClass="tamanho-minimo-medio">
 	    				<f:param name="usina" value="#{cadastroUsinaBean.usina.codigo}" />
 	    			</p:button>
 				</p:toolbarGroup>
@@ -33,142 +37,159 @@
 			
 			<p:messages autoUpdate="true" closable="true" />
 			
-			<div class="ui-fluid">
-				<p:panel header="Dados da usina" style="margin-top:10px;">
-					<p:panelGrid columns="4" layout="grid" 
-						style="margin-top: 2px;"
-						styleClass="panelgrid-noborder"
-						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">						
-						
-						<p:outputLabel value="Consórico" for="consorcio"/>
-				    	<p:selectOneMenu  id="consorcio" value="#{cadastroUsinaBean.usina.consorcio}"  label="consório"  style="width: 100% !important" converter="#{consorcioConverter}">
-							<f:selectItem itemLabel="Selecione aqui..." />
-							<f:selectItems value="#{cadastroUsinaBean.consorcios}" var="consorcio" itemValue="#{consorcio}" itemLabel="#{consorcio.nome}"/>
-						</p:selectOneMenu>
-												
-						<p:outputLabel value="Nome" for="nome"/>
-						<p:inputText id="nome" value="#{cadastroUsinaBean.usina.nome}">
-						</p:inputText>
-						
-						<p:outputLabel value="localização UTM" for="utm"/>
-						<p:inputText id="utm" value="#{cadastroUsinaBean.usina.localizacaoUtm}"/>
-						
-						<p:outputLabel value="localização GMS" for="gms"/>
-						<p:inputText id="gms" value="#{cadastroUsinaBean.usina.localizacaoGms}"/>
-												
-						<p:outputLabel value="Potência" for="potencia"/>
-				    	<p:selectOneMenu  id="potencia" value="#{cadastroUsinaBean.usina.potencia}"  label="Potência"  style="width: 100% !important" converter="#{potenciaConverter}">
-							<f:selectItem itemLabel="Selecione aqui..." />
-							<f:selectItems value="#{cadastroUsinaBean.potencias}" var="potencia" itemValue="#{potencia}" itemLabel="#{potencia.nome} - #{potencia.grandeza}"/>
-						</p:selectOneMenu>	
-						
-						<p:outputLabel value="ART" for="art"/>
-						<p:inputText id="art" value="#{cadastroUsinaBean.usina.art}"/>
-						
-						<p:outputLabel value="Situação" for="situacao"/>
-				    	<p:selectOneMenu  id="situacao" value="#{cadastroUsinaBean.usina.situacao}"  label="situacao"  style="width: 100% !important">
-							<f:selectItem itemLabel="Selecione aqui..." />
-							<f:selectItems value="#{cadastroUsinaBean.situacoesPprocesso}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
-						</p:selectOneMenu>									
-						
-						<p:outputLabel value="Comodato" for="comodato"/>
-				    	<p:selectOneMenu  id="comodato" value="#{cadastroUsinaBean.usina.comodato}"  label="Comodato"  style="width: 100% !important" converter="#{consorcioConverter}">
-							<f:selectItem itemLabel="Selecione aqui..." />
-							<f:selectItems value="#{cadastroUsinaBean.comodatos}" var="comodato" itemValue="#{comodato}" itemLabel="#{comodato.nome}"/>
-						</p:selectOneMenu>			
-						
-					</p:panelGrid>
-				</p:panel>
-			</div>		
-						
-			<div class="ui-fluid">
-				<p:panel header="Endereço do Usina" style="margin-top:10px;">
-					<p:panelGrid columns="4" layout="grid" 
-						style="margin-top: 2px;"
-						styleClass="panelgrid-noborder"
-						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">
-						
-						<p:outputLabel value="CEP" for="cep"/>
-						<p:inputText id="cep" value="#{cadastroUsinaBean.usina.cep}"/>							
-						
-						<p:outputLabel value="Logadouro" for="logradouro"/>
-						<p:inputText id="logradouro" value="#{cadastroUsinaBean.usina.logradouro}"/>
-													
-						<p:outputLabel value="Número" for="numero"/>
-						<p:inputText id="numero" value="#{cadastroUsinaBean.usina.numero}"/>
-												
-						<p:outputLabel value="Complemento" for="complemento"/>
-						<p:inputText id="complemento" value="#{cadastroUsinaBean.usina.complemento}"/>
-						
-						<p:outputLabel value="Bairro" for="bairro"/>
-						<p:inputText id="bairro" value="#{cadastroUsinaBean.usina.bairro}"/>
+			 <p:accordionPanel>
+        		<p:tab title="Usina -#{cadastroUsinaBean.usina.nome}">	
+        							
+					<div class="ui-fluid">
+						<p:panel header="Dados da usina" style="margin-top:10px;">
+							<p:panelGrid columns="4" layout="grid" 
+								style="margin-top: 2px;"
+								styleClass="panelgrid-noborder"
+								columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">						
+								
+								<p:outputLabel value="Consórico" for="consorcio"/>
+						    	<p:selectOneMenu  id="consorcio" value="#{cadastroUsinaBean.usina.consorcio}"  label="consório"  style="width: 100% !important" converter="#{consorcioConverter}">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.consorcios}" var="consorcio" itemValue="#{consorcio}" itemLabel="#{consorcio.nome}"/>
+								</p:selectOneMenu>
+														
+								<p:outputLabel value="Nome" for="nome"/>
+								<p:inputText id="nome" value="#{cadastroUsinaBean.usina.nome}">
+								</p:inputText>
+								
+								<p:outputLabel value="localização UTM" for="utm"/>
+								<p:inputText id="utm" value="#{cadastroUsinaBean.usina.localizacaoUtm}"/>
+								
+								<p:outputLabel value="localização GMS" for="gms"/>
+								<p:inputText id="gms" value="#{cadastroUsinaBean.usina.localizacaoGms}"/>
+														
+								<p:outputLabel value="Potência" for="potencia"/>
+						    	<p:selectOneMenu  id="potencia" value="#{cadastroUsinaBean.usina.potencia}"  label="Potência"  style="width: 100% !important" converter="#{potenciaConverter}">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.potencias}" var="potencia" itemValue="#{potencia}" itemLabel="#{potencia.nome} - #{potencia.grandeza}"/>
+								</p:selectOneMenu>	
+								
+								<p:outputLabel value="ART" for="art"/>
+								<p:inputText id="art" value="#{cadastroUsinaBean.usina.art}"/>
+								
+								<p:outputLabel value="Situação" for="situacao"/>
+						    	<p:selectOneMenu  id="situacao" value="#{cadastroUsinaBean.usina.situacao}"  label="situacao"  style="width: 100% !important">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.situacoesPprocesso}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
+								</p:selectOneMenu>									
+								
+								<p:outputLabel value="Comodato" for="comodato"/>
+						    	<p:selectOneMenu  id="comodato" value="#{cadastroUsinaBean.usina.comodato}"  label="Comodato"  style="width: 100% !important" converter="#{consorcioConverter}">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.comodatos}" var="comodato" itemValue="#{comodato}" itemLabel="#{comodato.nome}"/>
+								</p:selectOneMenu>			
+								
+							</p:panelGrid>
+						</p:panel>
+					</div>		
+        		
+	        		<div class="ui-fluid">
+						<p:panel header="Endereço do Usina" style="margin-top:10px;">
+							<p:panelGrid columns="4" layout="grid" 
+								style="margin-top: 2px;"
+								styleClass="panelgrid-noborder"
+								columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">
+								
+								<p:outputLabel value="CEP" for="cep"/>
+								<p:inputText id="cep" value="#{cadastroUsinaBean.usina.cep}"/>							
+								
+								<p:outputLabel value="Logadouro" for="logradouro"/>
+								<p:inputText id="logradouro" value="#{cadastroUsinaBean.usina.logradouro}"/>
 															
-						<p:outputLabel value="Estado" for="estado"/>						
-						<p:selectOneMenu id="estado" value="#{cadastroUsinaBean.usina.cidade.estado}" label="Estado" converter="#{estadoConverter}">
-							<f:selectItem itemLabel="Selecione aqui..." />
-							<f:selectItems value="#{cadastroUsinaBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
-						</p:selectOneMenu>
-															
-						<p:outputLabel value="cidade" for="cidade"/>
-						<p:inputText id="cidade" value="#{cadastroUsinaBean.usina.cidade.nome}"/>
-															
-					</p:panelGrid>
-				</p:panel>
-			</div>				
+								<p:outputLabel value="Número" for="numero"/>
+								<p:inputText id="numero" value="#{cadastroUsinaBean.usina.numero}"/>
+														
+								<p:outputLabel value="Complemento" for="complemento"/>
+								<p:inputText id="complemento" value="#{cadastroUsinaBean.usina.complemento}"/>
+								
+								<p:outputLabel value="Bairro" for="bairro"/>
+								<p:inputText id="bairro" value="#{cadastroUsinaBean.usina.bairro}"/>
+																	
+								<p:outputLabel value="Estado" for="estado"/>						
+								<p:selectOneMenu id="estado" value="#{cadastroUsinaBean.usina.cidade.estado}" label="Estado" converter="#{estadoConverter}">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
+								</p:selectOneMenu>
+																	
+								<p:outputLabel value="cidade" for="cidade"/>
+								<p:inputText id="cidade" value="#{cadastroUsinaBean.usina.cidade.nome}"/>
+																	
+							</p:panelGrid>
+						</p:panel>
+					</div>	
+        		
+        		</p:tab>
+        		
+        		<p:tab title="Usina - Particionamento" rendered="#{cadastroUsinaBean.usinaParticionada}">	
+					<p:dataTable value="#{cadastroUsinaBean.usina.usinas}" var="usina" styleClass="margem-top-media margem-bottom-grande"
+					             rowStyleClass="#{documentacao.situacao.cor_css}" 
+						         emptyMessage="Não existe compartilhamento!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+						         paginatorPosition="bottom" id="tableCompartilhamento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+						
+						<p:column headerText="Usina" style="text-align: left;">
+							<h:outputText value="#{usina.nome}"/>
+						</p:column>
+						
+						<p:column headerText="Potência" styleClass="column-medio">
+							<h:outputText value="#{usina.potencia.nome} - #{usina.potencia.grandeza}"/>
+						</p:column>
+						
+						<p:column headerText="Visualizar" styleClass="column-medio">
+							<p:button outcome="/usina/usina/cadastroUsina" icon="ui-icon-search" title="Ir para">
+								<f:param name="usina" value="#{usina.codigo}" />
+							</p:button>
+						</p:column>								
+					</p:dataTable>
+        		</p:tab>
+        		
+        		<p:tab title="Usina - Documento">	
+        			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documentacao" styleClass="margem-top-media margem-bottom-grande"
+					             rowStyleClass="#{documentacao.situacao.cor_css}"  
+						         emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+						         paginatorPosition="bottom" id="tableDocumento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+						
+						<p:column headerText="Documento" style="text-align: left;" >
+							<h:outputText value="#{documentacao.documento.nome}"/>
+						</p:column>
+						
+						<p:column headerText="Arquivo" style="text-align: left;">
+							<h:outputText value="#{documentacao.arquivo}"/>
+						</p:column>
+						
+						<p:column headerText="situacao" styleClass="column-medio" >
+							<h:outputText value="#{documentacao.situacao.descricao}"/>
+						</p:column>
+						
+						<p:column headerText="Tipo" styleClass="column-medio" >
+							<h:outputText value="#{documentacao.documento.tipo.descricao}"/>
+						</p:column>
+						
+						<p:column headerText="Identificador" styleClass="column-medio">
+							<h:outputText value="#{documentacao.identificador}"/>
+						</p:column>
+						
+						<p:column headerText="Editar" styleClass="column-pequeno">
+							<p:button outcome="/usina/usina/cadastroDocumentacao" icon="ui-icon-pencil" title="Editar">
+								<f:param name="documentacao" value="#{documentacao.codigo}" />
+							</p:button>
+						</p:column>		
+						
+					</p:dataTable>
 			
-			<p:dataTable value="#{cadastroUsinaBean.usina.usinas}" var="usina" styleClass="margem-top-media margem-bottom-grande"
-			             rowStyleClass="#{documentacao.situacao.cor_css}" rendered="#{cadastroUsinaBean.usinaParticionada}"
-				         emptyMessage="Não existe compartilhamento!" rows="10" paginator="true" paginatorAlwaysVisible="false"
-				         paginatorPosition="bottom" id="tableCompartilhamento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
-				
-				<p:column headerText="Usina" style="text-align: left;">
-					<h:outputText value="#{usina.nome}"/>
-				</p:column>
-				
-				<p:column headerText="Potência" styleClass="column-medio">
-					<h:outputText value="#{usina.potencia.nome} - #{usina.potencia.grandeza}"/>
-				</p:column>
-				
-				<p:column headerText="Visualizar" styleClass="column-medio">
-					<p:button outcome="/usina/usina/cadastroUsina" icon="ui-icon-search" title="Ir para">
-						<f:param name="usina" value="#{usina.codigo}" />
-					</p:button>
-				</p:column>		
-				
-			</p:dataTable>
+        		</p:tab>
+        		
+        		<p:tab title="Usina - Prototocolo" rendered="#{cadastroUsinaBean.usinaTemProtocolo}">	
+        		
+        		</p:tab>
+        	</p:accordionPanel>
+						
 			
-			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documentacao" styleClass="margem-top-media margem-bottom-grande"
-			             rowStyleClass="#{documentacao.situacao.cor_css}"  
-				emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom" id="tableDocumento" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
-				
-				<p:column headerText="Documento" style="text-align: left;" >
-					<h:outputText value="#{documentacao.documento.nome}"/>
-				</p:column>
-				
-				<p:column headerText="Arquivo" style="text-align: left;">
-					<h:outputText value="#{documentacao.arquivo}"/>
-				</p:column>
-				
-				<p:column headerText="situacao" styleClass="column-medio" >
-					<h:outputText value="#{documentacao.situacao.descricao}"/>
-				</p:column>
-				
-				<p:column headerText="Tipo" styleClass="column-medio" >
-					<h:outputText value="#{documentacao.documento.tipo.descricao}"/>
-				</p:column>
-				
-				<p:column headerText="Identificador" styleClass="column-medio">
-					<h:outputText value="#{documentacao.identificador}"/>
-				</p:column>
-				
-				<p:column headerText="Editar" styleClass="column-pequeno">
-					<p:button outcome="/usina/usina/cadastroDocumentacao" icon="ui-icon-pencil" title="Editar">
-						<f:param name="documentacao" value="#{documentacao.codigo}" />
-					</p:button>
-				</p:column>		
-				
-			</p:dataTable>
+			
 			
 			
 		</h:form>

@@ -57,7 +57,7 @@ public class Protocolo implements Serializable {
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
-	private Empresa empresa;
+	private Empresa empresa = new Empresa();
 
 	//bi-directional many-to-one association to Usina
 	@ManyToOne

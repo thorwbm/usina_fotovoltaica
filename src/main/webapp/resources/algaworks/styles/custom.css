@@ -266,3 +266,15 @@ body {
 .cor_vermelho{
 	background-color: #ffb3ba !important;
 }
+
+.ui-accordion .ui-accordion-header {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    color: #fcfcfc;
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active {
+    background: #d6e8f5;
+    color: #000000;
+}
+

@@ -49,7 +49,6 @@
 		    <version>1.4</version>
 		</dependency>
 		
-
 		<!-- Requerido para envio de e-mails -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -57,7 +56,6 @@
 			<version>1.4.7</version>
 			<scope>compile</scope>
 		</dependency>
-
 
 		<!-- ######### PRIME FACES ########### -->
 		<!-- Tema primefaces -->
@@ -67,7 +65,7 @@
 			<version>1.0.10</version>
 			<scope>compile</scope>
 		</dependency>
-
+		
 		<!-- PrimeFaces (biblioteca de componentes) -->
 		<dependency>
 			<groupId>org.primefaces</groupId>

@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<o:viewParam name="usina" value="#{protocoloUsinaBean.usina}" converter="#{usinaConverter}"/>
+			<f:event listener="#{protocoloUsinaBean.inicializar}" type="preRenderView" />
+		</f:metadata>
+		<h1 class="aw-page-title">USINA</h1>
+		
+		<h:form id="frm">
+			Protocolo
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{protocoloUsinaBean.salvar}" update="@form" styleClass="tamanho-minimo-medio"/>
+					<p:separator />
+	    			<p:button value="Limpar" outcome="/usina/usina/protocoloUsina" styleClass="tamanho-minimo-medio"/>	    			
+	    			
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usina/usina/pesquisaUsina" styleClass="tamanho-minimo-medio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+						
+			<div class="ui-fluid">
+				<p:panel header="Dados da usina" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">						
+						
+						<p:outputLabel value="Consórico" />
+						<p:inputText value="#{protocoloUsinaBean.usina.consorcio.nome}" readonly="true"/>
+				    													
+						<p:outputLabel value="Nome"/>
+						<p:inputText value="#{protocoloUsinaBean.usina.nome}" readonly="true"/>												
+																		
+						<p:outputLabel value="Potência"/>
+						<p:inputText value="#{protocoloUsinaBean.usina.potencia.nome}" readonly="true"/>				    							
+												
+						<p:outputLabel value="Situação"/>
+						<p:outputLabel value="#{protocoloUsinaBean.usina.situacao.descricao}" styleClass="titulo-azul" />						
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>		
+			
+			<div class="ui-fluid">
+				<p:panel header="Adicionar potências" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">								
+											
+						<p:outputLabel value="Empresa" for="empresa"/>
+				    	<p:selectOneMenu  id="empresa" value="#{protocoloUsinaBean.protocolo.empresa}"  label="Empresa"  style="width: 100% !important" converter="#{empresaConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{protocoloUsinaBean.empresas}" var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Descrição" for="descricao"/>
+						<p:inputText id="descricao" value="#{protocoloUsinaBean.protocolo.descricao}"/>
+						
+						<p:outputLabel value="Nro Protocolo" for="nro_protocolo"/>
+						<p:inputText id="nro_protocolo" value="#{protocoloUsinaBean.protocolo.nroProtocolo}"/>
+												
+						<p:outputLabel value="Nro Protocolo Entrada" for="nro_protocolo_entrada"/>
+						<p:inputText id="nro_protocolo_entrada" value="#{protocoloUsinaBean.protocolo.nroProtocoloEntrada}"/>
+												
+						<p:outputLabel value="Nro Instalação" for="nro_instalacao"/>
+						<p:inputText id="nro_instalacao" value="#{protocoloUsinaBean.protocolo.nroInstalacao}"/>
+												
+						<p:outputLabel value="Nota Serviço" for="nota_servico"/>
+						<p:inputText id="nota_servico" value="#{protocoloUsinaBean.protocolo.notaServico}"/>
+												
+						<p:outputLabel value="Responsável" for="responsavel"/>
+						<p:inputText id="responsavel" value="#{protocoloUsinaBean.protocolo.responsavel}"/>
+												
+						<p:outputLabel value="Recebido por" for="recebido"/>
+						<p:inputText id="recebido" value="#{protocoloUsinaBean.protocolo.recebido}"/>	
+																
+						<p:commandButton value="Adicionar" id="botaoAdicionar" action="#{protocoloUsinaBean.adicionarPprotocolo}" update="tablePotocolo" styleClass="tamanho-minimo-medio" 
+						                 ajax="false" process="this"/>
+						<p:spacer/>
+						
+					</p:panelGrid>	
+				</p:panel>
+			</div>		
+			
+			<p:dataTable value="#{protocoloUsinaBean.usina.protocolos}" var="protocolo" styleClass="margem-bottom-grande"
+				         emptyMessage="Não foi adiconado nenhum protocolo!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+				         paginatorPosition="bottom" id="tableProtocolo" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+				
+				<p:column headerText="Empresa" styleClass="column-medio">
+					<h:outputText value="#{protocolo.empresa.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Nro Protocolo" style="text-align: left;">
+					<h:outputText value="#{protolo.nroProtocolo}"/>
+				</p:column>
+				
+				<p:column headerText="Nro Protocolo Entrada" style="text-align: left;">
+					<h:outputText value="#{protolo.nroProtocoloEntrada}"/>
+				</p:column>
+				
+				<p:column headerText="Nro Instalação" style="text-align: left;">
+					<h:outputText value="#{protolo.nroInstalacao}"/>
+				</p:column>
+				
+				<p:column headerText="Nota de Serviço" style="text-align: left;">
+					<h:outputText value="#{protolo.notaServico}"/>
+				</p:column>
+			
+				<p:column headerText="Excluir" styleClass="column-pequeno">
+					<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="tableProtocolo" actionListener="#{protocoloUsinaBean.removerProtocolo(protocolo)}">
+						<p:confirm header="Exclusão de Protocolo" message="Tem certeza que deseja excluir esta protocolo?"  icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>				
+			</p:dataTable>
+			
+			
+			<p:confirmDialog global="true">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </p:confirmDialog>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>
