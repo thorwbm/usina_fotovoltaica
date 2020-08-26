@@ -129,10 +129,13 @@ public class CadastroUsinaBean implements Serializable{
 		}
 	}
 	
-	public boolean isUsinaParticionada() {
+	public boolean isUsinaTemParticionamento() {
 		return usina.getUsinas().size() > 0;
 	}
-	
+
+	public boolean isUsinaTemDocumentacao() {
+		return usina.getDocumentacoes().size() > 0;
+	}
 	public boolean isUsinaTemProtocolo() {
 		return usina.getProtocolos().size() > 0;
 	}

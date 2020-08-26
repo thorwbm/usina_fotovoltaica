@@ -31,6 +31,7 @@ public class Protocolo implements Serializable {
 
 	private String descricao;
 	
+	@EqualsAndHashCode.Include
 	@Column(name="nro_protocolo")
 	private String nroProtocolo;
 

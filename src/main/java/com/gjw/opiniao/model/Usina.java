@@ -108,7 +108,7 @@ public class Usina implements Serializable {
 	private Set<Documentacao> documentacoes = new HashSet<Documentacao>();
 
 	//bi-directional many-to-one association to Protocolo
-	@OneToMany(mappedBy="usina")
+	@OneToMany(mappedBy="usina", cascade = CascadeType.ALL)
 	private Set<Protocolo> protocolos = new HashSet<Protocolo>();
 
 	public Usina() {

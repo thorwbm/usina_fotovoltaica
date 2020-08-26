@@ -125,7 +125,7 @@
         		
         		</p:tab>
         		
-        		<p:tab title="Usina - Particionamento" rendered="#{cadastroUsinaBean.usinaParticionada}">	
+        		<p:tab title="Usina - Particionamento" rendered="#{cadastroUsinaBean.usinaTemParticionamento}">	
 					<p:dataTable value="#{cadastroUsinaBean.usina.usinas}" var="usina" styleClass="margem-top-media margem-bottom-grande"
 					             rowStyleClass="#{documentacao.situacao.cor_css}" 
 						         emptyMessage="Não existe compartilhamento!" rows="10" paginator="true" paginatorAlwaysVisible="false"
@@ -147,7 +147,7 @@
 					</p:dataTable>
         		</p:tab>
         		
-        		<p:tab title="Usina - Documento">	
+        		<p:tab title="Usina - Documentação" rendered="#{cadastroUsinaBean.usinaTemDocumentacao}">	
         			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documentacao" styleClass="margem-top-media margem-bottom-grande"
 					             rowStyleClass="#{documentacao.situacao.cor_css}"  
 						         emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
@@ -183,7 +183,36 @@
 			
         		</p:tab>
         		
-        		<p:tab title="Usina - Prototocolo" rendered="#{cadastroUsinaBean.usinaTemProtocolo}">	
+        		<p:tab title="Usina - Prototocolo" rendered="#{cadastroUsinaBean.usinaTemProtocolo}">
+        			<p:dataTable value="#{cadastroUsinaBean.usina.protocolos}" var="protocolo" styleClass="margem-top-media margem-bottom-grande" 
+						         emptyMessage="Nenhuma protocolo cadastrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
+						         paginatorPosition="bottom" id="tableProtocolo" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
+						
+						<p:column headerText="Empresa" style="text-align: left;" >
+							<h:outputText value="#{protocolo.empresa.nome}"/>
+						</p:column>
+						
+						<p:column headerText="Descrição" style="text-align: left;">
+							<h:outputText value="#{protocolo.descricao}"/>
+						</p:column>
+						
+						<p:column headerText="Nro do protocolo" styleClass="column-medio" >
+							<h:outputText value="#{protocolo.nroProtocolo}"/>
+						</p:column>
+						
+						<p:column headerText="Nro Entrada" styleClass="column-medio" >
+							<h:outputText value="#{protocolo.nroProtocoloEntrada}"/>
+						</p:column>
+						
+						<p:column headerText="Nro Instalação" styleClass="column-medio">
+							<h:outputText value="#{protocolo.nroInstalacao}"/>
+						</p:column>
+						
+						<p:column headerText="Nota de Serviço" styleClass="column-medio">
+							<h:outputText value="#{protocolo.notaServico}"/>
+						</p:column>	
+						
+					</p:dataTable>	
         		
         		</p:tab>
         	</p:accordionPanel>

@@ -12,7 +12,6 @@ import javax.inject.Named;
 import com.gjw.opiniao.filter.ConsorcioFilter;
 import com.gjw.opiniao.model.Consorcio;
 import com.gjw.opiniao.service.ConsorcioService;
-import com.gjw.opiniao.service.PesquisaService;
 import com.gjw.opiniao.util.jsf.FacesUtil;
 
 import lombok.Data;

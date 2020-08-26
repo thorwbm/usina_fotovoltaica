@@ -9,7 +9,6 @@
 	<ui:define name="content">
 		<f:metadata>
 			<o:viewParam name="usina" value="#{protocoloUsinaBean.usina}" converter="#{usinaConverter}"/>
-			<f:event listener="#{protocoloUsinaBean.inicializar}" type="preRenderView" />
 		</f:metadata>
 		<h1 class="aw-page-title">USINA</h1>
 		
@@ -54,16 +53,17 @@
 			</div>		
 			
 			<div class="ui-fluid">
-				<p:panel header="Adicionar potências" style="margin-top:10px;">
+				<p:panel header="Adicionar protocolos" style="margin-top:10px;">
 					<p:panelGrid columns="4" layout="grid" 
 						style="margin-top: 2px;"
 						styleClass="panelgrid-noborder"
 						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">								
 											
 						<p:outputLabel value="Empresa" for="empresa"/>
-				    	<p:selectOneMenu  id="empresa" value="#{protocoloUsinaBean.protocolo.empresa}"  label="Empresa"  style="width: 100% !important" converter="#{empresaConverter}">
+				    	<p:selectOneMenu  id="empresa" value="#{protocoloUsinaBean.empresaSelecionada}"  label="Empresa"  converter="#{empresaConverter}">
 							<f:selectItem itemLabel="Selecione aqui..." />
 							<f:selectItems value="#{protocoloUsinaBean.empresas}" var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome}"/>
+							  
 						</p:selectOneMenu>
 						
 						<p:outputLabel value="Descrição" for="descricao"/>
@@ -87,8 +87,8 @@
 						<p:outputLabel value="Recebido por" for="recebido"/>
 						<p:inputText id="recebido" value="#{protocoloUsinaBean.protocolo.recebido}"/>	
 																
-						<p:commandButton value="Adicionar" id="botaoAdicionar" action="#{protocoloUsinaBean.adicionarPprotocolo}" update="tablePotocolo" styleClass="tamanho-minimo-medio" 
-						                 ajax="false" process="this"/>
+						<p:commandButton value="Adicionar" id="botaoAdicionar" action="#{protocoloUsinaBean.adicionarProtocolo}" update="tableProtocolo" styleClass="tamanho-minimo-medio" 
+						                 ajax="false" process="empresa descricao nro_protocolo nro_protocolo_entrada nro_instalacao nota_servico responsavel recebido" />
 						<p:spacer/>
 						
 					</p:panelGrid>	
@@ -104,19 +104,19 @@
 				</p:column>
 				
 				<p:column headerText="Nro Protocolo" style="text-align: left;">
-					<h:outputText value="#{protolo.nroProtocolo}"/>
+					<h:outputText value="#{protocolo.nroProtocolo}"/>
 				</p:column>
 				
 				<p:column headerText="Nro Protocolo Entrada" style="text-align: left;">
-					<h:outputText value="#{protolo.nroProtocoloEntrada}"/>
+					<h:outputText value="#{protocolo.nroProtocoloEntrada}"/>
 				</p:column>
 				
 				<p:column headerText="Nro Instalação" style="text-align: left;">
-					<h:outputText value="#{protolo.nroInstalacao}"/>
+					<h:outputText value="#{protocolo.nroInstalacao}"/>
 				</p:column>
 				
 				<p:column headerText="Nota de Serviço" style="text-align: left;">
-					<h:outputText value="#{protolo.notaServico}"/>
+					<h:outputText value="#{protocolo.notaServico}"/>
 				</p:column>
 			
 				<p:column headerText="Excluir" styleClass="column-pequeno">
