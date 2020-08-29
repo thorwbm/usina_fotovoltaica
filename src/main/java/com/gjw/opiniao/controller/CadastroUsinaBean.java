@@ -13,12 +13,16 @@ import javax.inject.Named;
 
 import com.gjw.opiniao.model.Cidade;
 import com.gjw.opiniao.model.Consorcio;
+import com.gjw.opiniao.model.Documentacao;
+import com.gjw.opiniao.model.Documento;
 import com.gjw.opiniao.model.Estado;
 import com.gjw.opiniao.model.Potencia;
+import com.gjw.opiniao.model.SituacaoDocumentacao;
 import com.gjw.opiniao.model.SituacaoProcesso;
 import com.gjw.opiniao.model.Usina;
 import com.gjw.opiniao.service.CidadeService;
 import com.gjw.opiniao.service.ConsorcioService;
+import com.gjw.opiniao.service.DocumentacaoService;
 import com.gjw.opiniao.service.DocumentoService;
 import com.gjw.opiniao.service.EstadoService;
 import com.gjw.opiniao.service.PotenciaService;
@@ -49,13 +53,18 @@ public class CadastroUsinaBean implements Serializable{
 	@Inject
 	private DocumentoService documentoService;
 	
+	@Inject 
+	private DocumentacaoService documentacaoService;
+	
 	@Inject
 	private EstadoService	estadoService;
 	
 	private Usina usina; 
 	private Cidade cidade;
 	private Estado estadoSelecionado;
+	private Documento documentoSelecionado;
 	
+	private List<Documento> documentos;
 	private List<Estado> estados;
 	private List<Consorcio> consorcios;
 	private List<Consorcio> comodatos;
@@ -76,6 +85,8 @@ public class CadastroUsinaBean implements Serializable{
 			estadoSelecionado = new Estado();
 			usina = new Usina();
 			estados = new ArrayList<Estado>();
+			documentos = new ArrayList<Documento>();
+			documentoSelecionado = new Documento();
 			
 			estadoSelecionado = estadoService.pesquisarPorCodigo(13L);
 			
@@ -88,6 +99,7 @@ public class CadastroUsinaBean implements Serializable{
 			situacoesPprocesso =  Arrays.asList(SituacaoProcesso.values());
 			potencias = potenciaService.listar();
 			estados = estadoService.listar();
+			
 			
 		}
 	}
@@ -102,6 +114,7 @@ public class CadastroUsinaBean implements Serializable{
 				situacao = "editado";
 			}
 		}
+		carregarDocumento();
 		return teste;
 	}
 	
@@ -136,7 +149,46 @@ public class CadastroUsinaBean implements Serializable{
 	public boolean isUsinaTemDocumentacao() {
 		return usina.getDocumentacoes().size() > 0;
 	}
+	
 	public boolean isUsinaTemProtocolo() {
 		return usina.getProtocolos().size() > 0;
+	}
+	
+	private void carregarDocumento() {
+		documentos = documentoService.listar();
+		
+		for (Documentacao documentacao : usina.getDocumentacoes()) {			
+			documentos.remove(documentacao.getDocumento());
+		}
+	}
+	
+	public void adicionarDocumento() {
+		
+		if(documentoSelecionado != null) {
+			
+			Documentacao doc = new Documentacao();
+			doc.setDataCriacao(new Date());
+			doc.setUsina(usina);
+			doc.setDocumento(documentoSelecionado);
+			doc.setSituacao(SituacaoDocumentacao.AGUARDANDO);			
+			
+			usina.getDocumentacoes().add(doc);
+			usina = usinaService.salvar(usina);
+			
+			usina = usinaService.buscarPorCodigo(usina.getCodigo());
+			carregarDocumento();
+		}
+	}
+	
+	public void excluirDocuemntacao(Documentacao doc) {
+		usina.getDocumentacoes().remove(doc);
+		//Documentacao doc = documentacaoService.pesquisarPorId(documentacao.getCodigo());
+		
+		documentacaoService.excluir(doc.getCodigo());
+		//usina = usinaService.salvar(usina);
+		usina = usinaService.buscarPorCodigo(usina.getCodigo());
+		carregarDocumento();
+		
+		
 	}
 }

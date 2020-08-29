@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	
+	<ui:define name="content">
+		<f:metadata>
+			<o:viewParam name="protocolo" value="#{cadastroProtocoloBean.protocolo}" converter="#{protocoloConverter}"/>
+		</f:metadata>
+		<h1 class="aw-page-title">PROTOCOLO</h1>
+		
+		<h:form id="frm">
+			Protocolo
+			<p:toolbar style="margin-top:15px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroProtocoloBean.salvar}" update="@form" styleClass="tamanho-minimo-medio"/>
+					<p:separator />
+	    			<p:button value="Limpar" outcome="/usina/usina/protocoloUsina" styleClass="tamanho-minimo-medio"/>	    			
+	    			
+				</p:toolbarGroup>
+				
+				<p:toolbarGroup align="right">
+					<p:button value="Voltar" outcome="/usina/usina/pesquisaUsina" styleClass="tamanho-minimo-medio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:messages autoUpdate="true" closable="true" />
+						
+			<div class="ui-fluid">
+				<p:panel header="Dados da usina" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">						
+						
+						<p:outputLabel value="Consórico" />
+						<p:inputText value="#{cadastroProtocoloBean.protocolo.usina.consorcio.nome}" readonly="true"/>
+				    													
+						<p:outputLabel value="Nome"/>
+						<p:inputText value="#{cadastroProtocoloBean.protocolo.usina.nome}" readonly="true"/>												
+																		
+						<p:outputLabel value="Potência"/>
+						<p:inputText value="#{cadastroProtocoloBean.protocolo.usina.potencia.nome}" readonly="true"/>				    							
+												
+						<p:outputLabel value="Situação"/>
+						<p:outputLabel value="#{cadastroProtocoloBean.protocolo.usina.situacao.descricao}" styleClass="titulo-azul" />						
+						
+					</p:panelGrid>
+				</p:panel>
+			</div>		
+			
+			<div class="ui-fluid">
+				<p:panel header="Adicionar protocolos" style="margin-top:10px;">
+					<p:panelGrid columns="4" layout="grid" 
+						style="margin-top: 2px;"
+						styleClass="panelgrid-noborder"
+						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">								
+											
+						<p:outputLabel value="Empresa" for="empresa"/>
+				    	<p:selectOneMenu  id="empresa" value="#{cadastroProtocoloBean.empresaSelecionada}"  label="Empresa"  converter="#{empresaConverter}">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroProtocoloBean.empresas}" var="empresa" itemValue="#{empresa}" itemLabel="#{empresa.nome}"/>
+							  
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="Descrição" for="descricao"/>
+						<p:inputText id="descricao" value="#{cadastroProtocoloBean.protocolo.descricao}"/>
+						
+						<p:outputLabel value="Nro Protocolo" for="nro_protocolo"/>
+						<p:inputText id="nro_protocolo" value="#{cadastroProtocoloBean.protocolo.nroProtocolo}"/>
+												
+						<p:outputLabel value="Nro Protocolo Entrada" for="nro_protocolo_entrada"/>
+						<p:inputText id="nro_protocolo_entrada" value="#{cadastroProtocoloBean.protocolo.nroProtocoloEntrada}"/>
+												
+						<p:outputLabel value="Nro Instalação" for="nro_instalacao"/>
+						<p:inputText id="nro_instalacao" value="#{cadastroProtocoloBean.protocolo.nroInstalacao}"/>
+												
+						<p:outputLabel value="Nota Serviço" for="nota_servico"/>
+						<p:inputText id="nota_servico" value="#{cadastroProtocoloBean.protocolo.notaServico}"/>
+												
+						<p:outputLabel value="Responsável" for="responsavel"/>
+						<p:inputText id="responsavel" value="#{cadastroProtocoloBean.protocolo.responsavel}"/>
+												
+						<p:outputLabel value="Recebido por" for="recebido"/>
+						<p:inputText id="recebido" value="#{cadastroProtocoloBean.protocolo.recebido}"/>	
+																
+												
+					</p:panelGrid>	
+				</p:panel>
+			</div>		
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

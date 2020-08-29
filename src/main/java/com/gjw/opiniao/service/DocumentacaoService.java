@@ -42,4 +42,8 @@ public class DocumentacaoService implements Serializable{
 			throw new NegocioException("A documentação não pode ser excluida!",e);
 		}
 	}
+	
+	public Documentacao pesquisarPorId(Long documentacaoId) {
+		return documentacaoDao.pesquisarPorCodigo(documentacaoId);
+	}
 }

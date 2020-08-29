@@ -38,6 +38,7 @@
     <http security="none" pattern="/usina/usina/cadastroUsina.xhtml" />    
     <http security="none" pattern="/usina/usina/dividirUsina.xhtml" />     
     <http security="none" pattern="/usina/usina/protocoloUsina.xhtml" />    
+    <http security="none" pattern="/usina/protocolo/cadastroProtocolo.xhtml" />    
     <http security="none" pattern="/usina/usina/cadastroDocumentacao.xhtml" />    
     <http security="none" pattern="/index.xhtml" />
     <http security="none" pattern="/javax.faces.resource/**" />

@@ -18,4 +18,21 @@ public class ProtocoloService implements Serializable{
 	public List<Protocolo> listar(){
 		return protocoloDao.listar("nome", "asc");
 	}
+
+	public Protocolo salvar(Protocolo protocolo) {
+		try {
+			return protocoloDao.salvar(protocolo);
+		} catch (Exception e) {
+			throw new NegocioException("O protocolo não pode ser salvo!",e);
+		}
+	}
+	
+	public void excluir(Long protocoloId) {
+		try {
+			protocoloDao.excluir(protocoloId);
+		} catch (Exception e) {
+			throw new NegocioException("O protocolo não pode ser excluida!",e);
+		}
+		
+	}
 }

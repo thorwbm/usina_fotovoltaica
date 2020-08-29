@@ -13,4 +13,16 @@ public class ProtocoloDAO extends GenericoDAO<Protocolo, Long> implements Serial
 		return Protocolo.class;
 	}
 
+	public Protocolo buscarPorCodigo(Long protocoloId) {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("Select pro from Protocolo pro inner join fetch pro.usina   usi ")
+		  .append("                              inner join fetch pro.empresa emp ")
+		  .append("  where pro.codigo = :protocoloId ");
+		
+		return getEntityManager().createQuery(sb.toString(), Protocolo.class)
+				.setParameter("protocoloId", protocoloId)
+				.getSingleResult();
+	}
+
 }

@@ -38,7 +38,7 @@
 			<p:messages autoUpdate="true" closable="true" />
 			
 			 <p:accordionPanel>
-        		<p:tab title="Usina -#{cadastroUsinaBean.usina.nome}">	
+        		<p:tab title="Usina  - #{cadastroUsinaBean.usina.usina_origem.nome}  - #{cadastroUsinaBean.usina.nome} ">	
         							
 					<div class="ui-fluid">
 						<p:panel header="Dados da usina" style="margin-top:10px;">
@@ -125,7 +125,7 @@
         		
         		</p:tab>
         		
-        		<p:tab title="Usina - Particionamento" rendered="#{cadastroUsinaBean.usinaTemParticionamento}">	
+        		<p:tab title="Usina - Particionamento" rendered="#{cadastroUsinaBean.usina.temParticonamento}">	
 					<p:dataTable value="#{cadastroUsinaBean.usina.usinas}" var="usina" styleClass="margem-top-media margem-bottom-grande"
 					             rowStyleClass="#{documentacao.situacao.cor_css}" 
 						         emptyMessage="Não existe compartilhamento!" rows="10" paginator="true" paginatorAlwaysVisible="false"
@@ -148,6 +148,30 @@
         		</p:tab>
         		
         		<p:tab title="Usina - Documentação" rendered="#{cadastroUsinaBean.usinaTemDocumentacao}">	
+        			<div class="ui-fluid">
+						<p:panel header="Adicionar Documento" style="margin-top:10px;">
+							<p:panelGrid columns="4" layout="grid" 
+								style="margin-top: 2px;"
+								styleClass="panelgrid-noborder"
+								columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">	
+								
+								<p:outputLabel value="Documento" for="adicionarDocumento"/>
+						    	<p:selectOneMenu  id="adicionarDocumento" value="#{cadastroUsinaBean.documentoSelecionado}"  
+						    	                  label="Documentação"  style="width: 100% !important" converter="#{documentoConverter}">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.documentos}" var="documento" itemValue="#{documento}" 
+									               itemLabel="#{documento.nome}"/>
+									<p:ajax update="tipoDocumento"/>
+								</p:selectOneMenu>
+								
+								<p:outputLabel id="tipoDocumento" value="#{cadastroUsinaBean.documentoSelecionado.tipo.descricao}" styleClass="titulo-azul texto_medio"/>
+								<p:commandButton value="Adicionar" id="botaoAdicionar" action="#{cadastroUsinaBean.adicionarDocumento}"  update="tableDocumento adicionarDocumento" 
+								                 styleClass="tamanho-minimo-medio tamanho-max-medio"/>
+									
+	        				</p:panelGrid>
+	        			</p:panel>
+	        		</div>
+        		
         			<p:dataTable value="#{cadastroUsinaBean.usina.documentacoes}" var="documentacao" styleClass="margem-top-media margem-bottom-grande"
 					             rowStyleClass="#{documentacao.situacao.cor_css}"  
 						         emptyMessage="Nenhuma documento encontrado!" rows="10" paginator="true" paginatorAlwaysVisible="false"
@@ -177,7 +201,13 @@
 							<p:button outcome="/usina/usina/cadastroDocumentacao" icon="ui-icon-pencil" title="Editar">
 								<f:param name="documentacao" value="#{documentacao.codigo}" />
 							</p:button>
-						</p:column>		
+						</p:column>							
+						
+						<p:column headerText="Excluir" styleClass="column-pequeno">
+							<p:commandButton icon="ui-icon-trash" title="Excluir" process="@this" update="tableDocumento" actionListener="#{cadastroUsinaBean.excluirDocuemntacao(documentacao)}">
+								<p:confirm header="Exclusão de Documentação" message="Tem certeza que deseja excluir a documentação?"  icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
 						
 					</p:dataTable>
 			
@@ -212,15 +242,22 @@
 							<h:outputText value="#{protocolo.notaServico}"/>
 						</p:column>	
 						
+						<p:column headerText="Editar" styleClass="column-pequeno">
+							<p:button outcome="/usina/protocolo/cadastroProtocolo" icon="ui-icon-pencil" title="Editar">
+								<f:param name="protocolo" value="#{protocolo.codigo}" />
+							</p:button>
+						</p:column>		
+						
 					</p:dataTable>	
         		
         		</p:tab>
         	</p:accordionPanel>
+							
+			<p:confirmDialog global="true">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+            </p:confirmDialog>			
 						
-			
-			
-			
-			
 		</h:form>
 	</ui:define>
 	

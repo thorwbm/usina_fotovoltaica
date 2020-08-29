@@ -27,6 +27,7 @@ public class CadastroDocumentoBean  implements Serializable {
 	private DocumentoService documentoService;
 	
 	private Documento documento;
+	private String situacao ;
 	
 	private List<TipoDocumento> tipoDocumentos;
 	
@@ -44,19 +45,17 @@ public class CadastroDocumentoBean  implements Serializable {
 			
 	public boolean isEditando() {		
 		boolean teste = (documento) != null;
-			if(teste) {
+		situacao = "adicionando";	
+		
+		if(teste) {
 				teste =  ((Object) documento.getCodigo()) != null;
+				situacao = "editando";
 			}
 		return teste;
 	}
 	
 	public String salvar() {
-		String situacao = "adicionado";
-		
-		if (isEditando()) {
-			situacao = "editado";
-		}
-		
+				
 		documento = documentoService.salvar(documento);
 		FacesUtil.addInfoMessage("O documento [" + documento.getNome() + "] foi " + situacao + " com sucesso.");
 		return "pesquisaDocumento.xhtml?faces-redirect=true";

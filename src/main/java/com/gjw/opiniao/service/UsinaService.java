@@ -47,4 +47,8 @@ public class UsinaService implements Serializable{
 		return usinaDao.pesquisar(PesquisaService.carregaListaParametrosPesquisa(usinaFilter));
 	}
 
+	public Usina buscarPorCodigo(Long usinaId) {
+		return usinaDao.buscarPorCodigo(usinaId);
+	}
+
 }

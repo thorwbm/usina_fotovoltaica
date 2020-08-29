@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -100,7 +101,7 @@ public class Usina implements Serializable {
 	private Usina usina_origem;
 	
 	//bi-directional many-to-one association to Usina
-	@OneToMany(mappedBy="usina_origem")
+	@OneToMany(mappedBy="usina_origem", cascade = CascadeType.ALL)
 	private Set<Usina> usinas = new HashSet<Usina>();
 
 	//bi-directional many-to-one association to Documentacao
@@ -113,4 +114,15 @@ public class Usina implements Serializable {
 
 	public Usina() {
 	}
+	
+	@Transient
+	private boolean isTemParticonamento;
+
+	public boolean getTemParticonamento() {
+		return this.usinas.size() > 0;
+	}
+	
+	
+	
+	
 }
