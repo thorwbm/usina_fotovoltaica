@@ -91,7 +91,7 @@ public class CadastroDocumentacaoBean implements Serializable {
 		  String extensao = Utilitario.capturarExtensaoArquivo(uploadedFile.getFileName());
 		  try {
 			 // UploadedFile uploadedFile = event.getFile();
-			  caminho = "d:/arquivos/" + documentacao.getUsina().getConsorcio().getNome().replace(" ", "_") + "/" + documentacao.getUsina().getNome().replace(" ", "_");  
+			  caminho = "c:/arquivos/" + documentacao.getUsina().getConsorcio().getNome().replace(" ", "_") + "/" + documentacao.getUsina().getNome().replace(" ", "_");  
 			  nomeArquivo =  documentacao.getUsina().getConsorcio().getCodigo().toString() + "_" 
 					  		  + documentacao.getDocumento().getNome().replace(" ", "_") + "_"
 		                      + documentacao.getUsina().getNome().replace(" ", "_") + "_" 
