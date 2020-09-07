@@ -1,6 +1,7 @@
 package com.gjw.opiniao.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,19 +50,60 @@ public class ProtocoloUsinaBean implements Serializable{
 		if (!FacesUtil.isPostback()) {
 			protocolo = new Protocolo();
 			empresas = empresaService.listar();
-			empresaSelecionada = new Empresa();
+			empresaSelecionada = empresaService.buscarPorNome("CEMIG");
 		}
 		
 	}
 	
 	public void adicionarProtocolo() {
-		protocolo.setEmpresa(empresaSelecionada);
-		protocolo.setUsina(usina);
-		protocolo.setDataAbertura(new Date());
-		usina.getProtocolos().add(protocolo);
-		protocolo = new Protocolo();
-		empresaSelecionada = new Empresa();
+		List<String> erros = new ArrayList<String>();
+		
+		erros = validarCadastroProtocolo(protocolo);
+		
+		if (erros.size() > 0) {
+			for (String erro : erros) {
+				FacesUtil.addErroMessage("O campo " + erro + " é obrigatorio.");
+			}
+			
+		} else {
+			protocolo.setEmpresa(empresaSelecionada);
+			protocolo.setUsina(usina);
+			protocolo.setDataAbertura(new Date());
+			usina.getProtocolos().add(protocolo);
+			protocolo = new Protocolo();
+			empresaSelecionada = new Empresa();
+		}
+		
 	}
+	
+	private List<String> validarCadastroProtocolo(Protocolo protocolo) {
+		List<String> erros = new ArrayList<String>();
+		
+		if(protocolo.getEmpresa() == null) {
+			erros.add("Empresa");
+		}
+		
+		if(protocolo.getNotaServico().equals("")) {
+			erros.add("Nota de serviço");
+		}
+		
+		if(protocolo.getNroInstalacao() == 0) {
+			erros.add("Número de Instalação");
+		}
+		
+		if(protocolo.getNroProtocolo().equals("")) {
+			erros.add("Número do Protocolo");
+		}
+		
+		if(protocolo.getNroProtocoloEntrada().equals("")) {
+			erros.add("Número do Protocolo de Entrada");
+		}
+		
+			
+		
+		return erros;
+	}
+	
 	
 	public void removerProtocolo(Protocolo protocolo) {
 		usina.getProtocolos().remove(protocolo);

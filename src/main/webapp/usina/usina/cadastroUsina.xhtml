@@ -48,14 +48,15 @@
 								columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">						
 								
 								<p:outputLabel value="Consórico" for="consorcio"/>
-						    	<p:selectOneMenu  id="consorcio" value="#{cadastroUsinaBean.usina.consorcio}"  label="consório"  style="width: 100% !important" converter="#{consorcioConverter}">
+						    	<p:selectOneMenu  id="consorcio" value="#{cadastroUsinaBean.usina.consorcio}"  label="consório"  style="width: 100% !important" 
+						    	                  converter="#{consorcioConverter}" required="true" requiredMessage="O consórcio é requerido.">
 									<f:selectItem itemLabel="Selecione aqui..." />
 									<f:selectItems value="#{cadastroUsinaBean.consorcios}" var="consorcio" itemValue="#{consorcio}" itemLabel="#{consorcio.nome}"/>
 								</p:selectOneMenu>
 														
 								<p:outputLabel value="Nome" for="nome"/>
-								<p:inputText id="nome" value="#{cadastroUsinaBean.usina.nome}">
-								</p:inputText>
+								<p:inputText id="nome" value="#{cadastroUsinaBean.usina.nome}"
+								             required="true" requiredMessage="O nome é requerido."/>
 								
 								<p:outputLabel value="localização UTM" for="utm"/>
 								<p:inputText id="utm" value="#{cadastroUsinaBean.usina.localizacaoUtm}"/>
@@ -64,7 +65,8 @@
 								<p:inputText id="gms" value="#{cadastroUsinaBean.usina.localizacaoGms}"/>
 														
 								<p:outputLabel value="Potência" for="potencia"/>
-						    	<p:selectOneMenu  id="potencia" value="#{cadastroUsinaBean.usina.potencia}"  label="Potência"  style="width: 100% !important" converter="#{potenciaConverter}">
+						    	<p:selectOneMenu  id="potencia" value="#{cadastroUsinaBean.usina.potencia}"  label="Potência"  style="width: 100% !important" 
+						    	                  converter="#{potenciaConverter}" required="true" requiredMessage="A potência é requerida.">
 									<f:selectItem itemLabel="Selecione aqui..." />
 									<f:selectItems value="#{cadastroUsinaBean.potencias}" var="potencia" itemValue="#{potencia}" itemLabel="#{potencia.nome} - #{potencia.grandeza}"/>
 								</p:selectOneMenu>	
@@ -74,7 +76,6 @@
 								
 								<p:outputLabel value="Situação" for="situacao"/>
 						    	<p:selectOneMenu  id="situacao" value="#{cadastroUsinaBean.usina.situacao}"  label="situacao"  style="width: 100% !important">
-									<f:selectItem itemLabel="Selecione aqui..." />
 									<f:selectItems value="#{cadastroUsinaBean.situacoesPprocesso}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
 								</p:selectOneMenu>									
 								
@@ -111,13 +112,17 @@
 								<p:inputText id="bairro" value="#{cadastroUsinaBean.usina.bairro}"/>
 																	
 								<p:outputLabel value="Estado" for="estado"/>						
-								<p:selectOneMenu id="estado" value="#{cadastroUsinaBean.usina.cidade.estado}" label="Estado" converter="#{estadoConverter}">
-									<f:selectItem itemLabel="Selecione aqui..." />
+								<p:selectOneMenu id="estado" value="#{cadastroUsinaBean.estadoSelecionado}" label="Estado" converter="#{estadoConverter}">
 									<f:selectItems value="#{cadastroUsinaBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
+									<p:ajax listener="#{cadastroUsinaBean.listarCidades}" update="cidade"/>
 								</p:selectOneMenu>
-																	
-								<p:outputLabel value="cidade" for="cidade"/>
-								<p:inputText id="cidade" value="#{cadastroUsinaBean.usina.cidade.nome}"/>
+								
+								<p:outputLabel value="Cidade" for="cidade"/>						
+								<p:selectOneMenu id="cidade" value="#{cadastroUsinaBean.usina.cidade}" label="cidade" converter="#{cidadeConverter}"
+								                 required="true" requiredMessage="A cidade é requerida.">
+									<f:selectItem itemLabel="Selecione aqui..." />
+									<f:selectItems value="#{cadastroUsinaBean.cidades}" var="cidade" itemValue="#{cidade}" itemLabel="#{cidade.nome}"/>
+								</p:selectOneMenu>
 																	
 							</p:panelGrid>
 						</p:panel>

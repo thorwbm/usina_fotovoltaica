@@ -72,6 +72,8 @@ public class CadastroUsinaBean implements Serializable{
 	private List<SituacaoProcesso> situacoesPprocesso;
 	private List<Potencia> potencias;
 
+	private List<Cidade> cidades;
+
 	String situacao = null;
 	
 	public CadastroUsinaBean() {
@@ -89,9 +91,9 @@ public class CadastroUsinaBean implements Serializable{
 			documentoSelecionado = new Documento();
 			
 			estadoSelecionado = estadoService.pesquisarPorCodigo(13L);
+			cidades = cidadeService.buscarCidades(estadoSelecionado);
 			
 			usina.setSituacao(SituacaoProcesso.ATIVO);
-			usina.getCidade().setEstado(estadoSelecionado);
 			
 			consorcios = consorcioService.listar();
 			comodatos = consorcioService.listar();
@@ -188,7 +190,10 @@ public class CadastroUsinaBean implements Serializable{
 		//usina = usinaService.salvar(usina);
 		usina = usinaService.buscarPorCodigo(usina.getCodigo());
 		carregarDocumento();
-		
-		
+				
+	}
+	
+	public void listarCidades() {
+		cidades = cidadeService.buscarCidades(estadoSelecionado);
 	}
 }

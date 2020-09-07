@@ -96,6 +96,9 @@ public abstract class GenericoDAO<T, ID extends Serializable> implements Seriali
         	if(objPesquisa.getOperacao().equalsIgnoreCase("<=")){
         		criteria.add(Restrictions.le(objPesquisa.getCampo(), objPesquisa.getValor()));
         	}
+        	if(objPesquisa.getOperacao().equalsIgnoreCase("in")){
+        		criteria.add(Restrictions.eq(objPesquisa.getCampo(), objPesquisa.getValor()));
+        	}
         }
         
         return criteria.list();

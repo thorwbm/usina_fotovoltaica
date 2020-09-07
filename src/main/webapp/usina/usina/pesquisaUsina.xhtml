@@ -39,6 +39,12 @@
 						<p:outputLabel value="Usina" for="pesquisaUsina"/>
 						<p:inputText id="pesquisaUsina" value="#{pesquisaUsinaBean.usinaFilter.nome}"/>
 						
+						<p:outputLabel value="Consórcio" for="pesquisaSituacao" />
+						<p:selectOneMenu id="pesquisaSituacao" value="#{pesquisaUsinaBean.usinaFilter.situacao}" style="width:100%">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{pesquisaUsinaBean.situacoes}" var="situacao" itemValue="#{situacao}" itemLabel="#{situacao.descricao}"/>
+						</p:selectOneMenu>
+						
 					</p:panelGrid>
 				</p:panel>
 			</div>
@@ -47,7 +53,7 @@
 				emptyMessage="Nenhuma uisina encontrada!" rows="10" paginator="true" paginatorAlwaysVisible="false"
 				paginatorPosition="bottom" id="table" reflow="true" rowsPerPageTemplate="5,10,15,20,25,30,35,40,45,50">
 				
-				<p:column headerText="codigo"  style="text-align: center;" styleClass="column-pequeno">
+				<p:column headerText="codigo"  style="text-align: center;" sortBy="#{usina.codigo}" styleClass="column-pequeno">
 					<h:outputText value="#{usina.codigo}"/>
 				</p:column>
 				
@@ -55,8 +61,16 @@
 					<h:outputText value="#{usina.consorcio.nome}"/>
 				</p:column>
 				
-				<p:column headerText="Nome"  style="text-align: center;">
+				<p:column headerText="Nome"  style="text-align: center;" sortBy="#{usina.nome}">
 					<h:outputText value="#{usina.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Cidade"  style="text-align: center;">
+					<h:outputText value="#{usina.cidade.nome}"/>
+				</p:column>
+				
+				<p:column headerText="UF" styleClass="column-pequeno">
+					<h:outputText value="#{usina.cidade.estado.sigla}"/>
 				</p:column>
 				
 				<p:column headerText="Situação"  style="text-align: center;" styleClass="botao-medio">

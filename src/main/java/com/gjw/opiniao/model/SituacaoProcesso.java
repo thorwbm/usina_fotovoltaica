@@ -24,4 +24,11 @@ public enum SituacaoProcesso {
 	public String getCor() {
 		return cor;
 	}
+
+@Override
+public String toString() {
+	return this.name();
+}
+		
+	
 }

@@ -51,4 +51,8 @@ public class UsinaService implements Serializable{
 		return usinaDao.buscarPorCodigo(usinaId);
 	}
 
+	public List<Usina> listar(String campo, String ordem) {
+		return usinaDao.listar(campo, ordem);
+	}
+
 }

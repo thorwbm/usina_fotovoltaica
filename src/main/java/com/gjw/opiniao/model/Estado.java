@@ -32,9 +32,6 @@ public class Estado implements Serializable {
 
 	private String sigla;
 
-	//bi-directional many-to-one association to Cidade
-	@OneToMany(mappedBy="estado")
-	private Set<Cidade> cidades = new HashSet<Cidade>();
 
 	public Estado() {
 	}

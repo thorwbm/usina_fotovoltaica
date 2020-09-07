@@ -3,6 +3,8 @@ package com.gjw.opiniao.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.Email;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -39,6 +41,7 @@ public class Consorcio implements Serializable {
 
 	private String numero;
 	
+	@Column(length = 10)
 	private String cep;
 	
 	private String complemento;
@@ -47,6 +50,7 @@ public class Consorcio implements Serializable {
 	
 	private String contato;
 	
+	@Email
 	private String email;
 
 	private String site;

@@ -28,8 +28,7 @@ public class UsinaDAO extends GenericoDAO<Usina, Long> implements Serializable {
 		  .append("                      left join fetch usi.usina_origem  usn ")
 		  .append("                      left join fetch usi.usinas        uns ")
 		  .append("                      left join fetch usi.comodato      com ")
-		  .append(" where usi.codigo = :usinaId")
-		  .append(" order by doc.documento.tipo, doc.situacao");
+		  .append(" where usi.codigo = :usinaId");
 		
 		return getEntityManager().createQuery(sb.toString(), Usina.class)
 				.setParameter("usinaId", usinaId)

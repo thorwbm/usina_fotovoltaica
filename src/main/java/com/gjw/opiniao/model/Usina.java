@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -65,6 +66,7 @@ public class Usina implements Serializable {
 	
 	private String bairro;
 
+	@Size(max = 10, min = 10)
 	private String cep;
 	
 	private String telefone;

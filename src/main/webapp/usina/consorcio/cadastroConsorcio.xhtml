@@ -37,21 +37,21 @@
 						columnClasses="ui-grid-col-1, ui-grid-col-5,ui-grid-col-1, ui-grid-col-5">
 						
 						<p:outputLabel value="Nome" for="nome"/>
-						<p:inputText id="nome" value="#{cadastroConsorcioBean.consorcio.nome}">
+						<p:inputText id="nome" value="#{cadastroConsorcioBean.consorcio.nome}" required="true" requiredMessage="O nome é requerido.">
 							<p:focus />
 						</p:inputText>
 						
 						<p:outputLabel value="CPF - CPNJ" for="cpfCnpj"/>
-						<p:inputText id="cpfCnpj" value="#{cadastroConsorcioBean.consorcio.cpfCnpj}"/>
+						<p:inputText id="cpfCnpj" value="#{cadastroConsorcioBean.consorcio.cpfCnpj}" required="true" requiredMessage="O CPF OU CPNJ é requerido."/>
 													
 						<p:outputLabel value="Identificador" for="identificador"/>
-						<p:inputText id="identificador" value="#{cadastroConsorcioBean.consorcio.identificador}"/>
+						<p:inputText id="identificador" value="#{cadastroConsorcioBean.consorcio.identificador}" required="true" requiredMessage="O identificador é requerido."/>
 													
 						<p:outputLabel value="Telefone" for="telefone"/>
 						<p:inputText id="telefone" value="#{cadastroConsorcioBean.consorcio.telefone}"/>
 													
 						<p:outputLabel value="E-mail" for="email"/>
-						<p:inputText id="email" value="#{cadastroConsorcioBean.consorcio.email}"/>
+						<p:inputText id="email" value="#{cadastroConsorcioBean.consorcio.email}" required="true" requiredMessage="O Email é requerido."/>
 													
 						<p:outputLabel value="Contato" for="contato"/>
 						<p:inputText id="contato" value="#{cadastroConsorcioBean.consorcio.contato}"/>
@@ -83,13 +83,19 @@
 						<p:inputText id="bairro" value="#{cadastroConsorcioBean.consorcio.bairro}"/>																												
 															
 						<p:outputLabel value="Estado" for="estado"/>						
-						<p:selectOneMenu id="estado" value="#{cadastroConsorcioBean.consorcio.cidade.estado}" label="Estado" converter="#{estadoConverter}">
+						<p:selectOneMenu id="estado" value="#{cadastroConsorcioBean.estadoSelecionado}" label="Estado" converter="#{estadoConverter}">
 							<f:selectItem itemLabel="Selecione aqui..." />
 							<f:selectItems value="#{cadastroConsorcioBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}"/>
+							<p:ajax listener="#{cadastroConsorcioBean.listarCidades}" update="cidade"/>
 						</p:selectOneMenu>
 						
-						<p:outputLabel value="cidade" for="cidade"/>
-						<p:inputText id="cidade" value="#{cadastroConsorcioBean.consorcio.cidade.nome}"/>
+						<p:outputLabel value="Cidade" for="cidade"/>						
+						<p:selectOneMenu id="cidade" value="#{cadastroConsorcioBean.consorcio.cidade}" label="cidade" converter="#{cidadeConverter}"
+						                 required="true" requiredMessage="A cidade é requerida.">
+							<f:selectItem itemLabel="Selecione aqui..." />
+							<f:selectItems value="#{cadastroConsorcioBean.cidades}" var="cidade" itemValue="#{cidade}" itemLabel="#{cidade.nome}"/>
+						</p:selectOneMenu>
+						
 															
 					</p:panelGrid>
 				</p:panel>

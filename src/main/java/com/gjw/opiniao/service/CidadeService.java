@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.gjw.opiniao.dao.CidadeDAO;
 import com.gjw.opiniao.model.Cidade;
+import com.gjw.opiniao.model.Estado;
 
 public class CidadeService implements Serializable {
 
@@ -42,6 +43,10 @@ public class CidadeService implements Serializable {
 	
 	public Cidade buscaCidade(String cidadeNome, String siglaEstado) {
 		return cidadeDao.buscaCidade( cidadeNome,  siglaEstado);
+	}
+
+	public List<Cidade> buscarCidades(Estado estadoSelecionado) {
+		return cidadeDao.buscarCidades(estadoSelecionado.getCodigo());
 	}
 		
 }

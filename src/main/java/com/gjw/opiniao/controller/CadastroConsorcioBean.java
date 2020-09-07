@@ -39,8 +39,9 @@ public class CadastroConsorcioBean implements Serializable {
 	private Cidade cidade;
 	private Estado estadoSelecionado;
 	private String situacao = null;
-	
+
 	private List<Estado> estados;
+	private List<Cidade> cidades;
 	
 	
 	public CadastroConsorcioBean() {
@@ -55,7 +56,7 @@ public class CadastroConsorcioBean implements Serializable {
 			estados = estadoService.listar();
 			
 			estadoSelecionado = estadoService.pesquisarPorCodigo(13L);
-			consorcio.getCidade().setEstado(estadoSelecionado);
+			cidades = cidadeService.buscarCidades(estadoSelecionado);
 			
 		}
 	}
@@ -70,7 +71,7 @@ public class CadastroConsorcioBean implements Serializable {
 				situacao = "editado";
 			}
 		}
-		return teste;
+		return teste; 
 	}
 	
 	public String salvar() {				
@@ -92,5 +93,9 @@ public class CadastroConsorcioBean implements Serializable {
 	
 	public Cidade buscaCidade(String cidadeNome, String siglaEstado) {
 		return cidadeService.buscaCidade( cidadeNome,  siglaEstado);
+	}
+	
+	public void listarCidades() {
+		cidades = cidadeService.buscarCidades(estadoSelecionado);
 	}
 }

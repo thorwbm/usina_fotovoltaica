@@ -2,6 +2,7 @@ package com.gjw.opiniao.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +12,7 @@ import javax.inject.Named;
 
 import com.gjw.opiniao.filter.UsinaFilter;
 import com.gjw.opiniao.model.Consorcio;
+import com.gjw.opiniao.model.SituacaoProcesso;
 import com.gjw.opiniao.model.Usina;
 import com.gjw.opiniao.service.ConsorcioService;
 import com.gjw.opiniao.service.UsinaService;
@@ -36,7 +38,8 @@ public class PesquisaUsinaBean implements Serializable{
 	
 	private List<Usina> usinas;
 	private List<Consorcio> consorcios;
-	
+	private List<SituacaoProcesso> situacoes;
+		
 
 	/**************************************** INICIALIZAR  ******************************************************************************/
 	public PesquisaUsinaBean() {
@@ -51,12 +54,12 @@ public class PesquisaUsinaBean implements Serializable{
 		if(!FacesUtil.isPostback()){
 			consorcios = consorcioService.listar();
 			usinaFilter = new UsinaFilter();
-			
+			situacoes = Arrays.asList(SituacaoProcesso.values());
 		}
 	}
 	
 	public void limpar() {
-		usinas = usinaService.listar();
+		usinas = usinaService.listar("codigo", "desc");
 	}
 	/**************************************** INICIALIZAR  ******************************************************************************/
 

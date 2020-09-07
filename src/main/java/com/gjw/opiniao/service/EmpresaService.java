@@ -41,4 +41,8 @@ public class EmpresaService implements Serializable {
 			throw new NegocioException("A Empresa não pode ser excluida!!!", e);
 		}
 	}
+
+	public Empresa buscarPorNome(String empresaNome) {
+		return empresaDao.buscarPorNome(empresaNome);
+	}
 }
