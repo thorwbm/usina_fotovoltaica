@@ -2,7 +2,8 @@ package com.gjw.opiniao.util.mail;
 
 import java.io.Serializable;
 
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+//import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 
 import com.outjected.email.api.MailMessage;
